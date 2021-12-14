@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    background: white;
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+}
+
+main {
+    flex-shrink: 0;
+}
+
+svg {
+    display: flex;
+}
+
+/*SECTIONS*/
+#sec1 {
+    background: #3da9fc;
+}
+
+#sec1 h1 {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.caja {
+    width: 70%;
+    margin: 0px auto;
+}
+
+/* CAROUSEL */
+.carousel__contenedor {
+    /*Las flechas tienen que estar a la izquierda y derecha respectivamente
+    así que al carousel hay que darle un posicionamiento relativo para despues
+    ponerle posicionamiento absoluto a las flechas*/
+    position: relative;
+}
+
+.carousel__anterior,
+.carousel__siguiente {
+    position: absolute;
+    display:block; /*Para poder editar ancho y alto*/
+    width: 30px;
+    height: 30px;
+    border: none;
+    /*top y transform para alinear las flechas al medio*/
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    line-height: 30px;
+    text-align: center;
+    background: none;
+    color: white;
+    opacity: 40%;
+}
+
+.carousel__anterior:hover,
+.carousel__siguiente:hover {
+    opacity: 100%;
+}
+
+/*Sacar los botones a la izquierda y derecha respectivamente, sino, quedan ocultos atrás del carousel*/
+.carousel__anterior {
+    left: -30px;
+}
+
+.carousel__siguiente {
+    right: -30px;
+}
+
+/*Quitar scroll (firefox)*/
+.carousel__lista {
+    overflow: hidden;
+}
+
+.carousel__elemento {
+    text-align: center;
+}
+
+.btn__carousel {
+    border: 2px solid white;
+    color: white;
+    padding: 7px;
+    background: transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn__carousel:hover {
+    color: #3da9fc;
+    background: white;
+    transition: .3s;
+}
+
+/*Botones inferiores del glider*/
+.carousel__indicadores .glider-dot {
+    display: block;
+    width: 30px;
+    height: 4px;
+    background: white;
+    opacity: 20%;
+    border-radius: 0;
+    margin-top: 15px;
+}
+
+.carousel__indicadores .glider-dot:hover {
+    opacity: 50%;
+}
+
+.carousel__indicadores .glider-dot.active {
+    opacity: 100%;
+}
