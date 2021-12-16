@@ -4,7 +4,9 @@
         <jsp:include page="WEB-INF/paginas/comunes/etiquetasHead.jsp"/>
     </head>
     <body>
+        <jsp:include page="WEB-INF/paginas/comunes/menu.jsp"/>
         <main>
+            <jsp:include page="WEB-INF/paginas/index/seccionPortada.jsp"/>
             <jsp:include page="WEB-INF/paginas/index/seccionCarousel.jsp"/>
         </main>
 

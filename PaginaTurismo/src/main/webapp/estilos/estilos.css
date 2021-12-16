@@ -3,10 +3,18 @@
     margin: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background: white;
+    background-image: url("../img/fondo.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
     color: #fff;
-    font-family: Montserrat, sans-serif;
+    font-family: 'Marcellus', serif;
+    font-size: 1.25rem;
 }
 
 main {
@@ -17,7 +25,130 @@ svg {
     display: flex;
 }
 
+/*MENU NAVEGACION*/
+.header {
+    background: #3da9fc;
+    height: 80px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    /*Para que en pantallas muy grandes no se aleje mucho el logo del contenido:*/
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+.logo {
+    margin: auto 0;
+}
+
+.logo img {
+    width: 65px;
+    height: 65px;
+}
+
+.nav__menu {
+    display: flex;
+    margin-right: 40px;
+    list-style: none;
+}
+
+.nav__menu__item {
+    margin: 0 10px;
+    line-height: 80px;
+    width: max-content; /*Para que no corte el contenido*/
+}
+
+.nav__menu__link {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 25px;
+    transition: .5s;
+}
+
+.nav__menu__link:hover {
+    background: lightblue;
+}
+
+.nav__toggle {
+    color: white;
+    background: none;
+    border: none;
+    font-size: 30px;
+    padding: 0 20px;
+    line-height: 60px;
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: 60px;
+    }
+
+    .logo img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .nav__menu {
+        flex-direction: column; /*Para que los links se vean de forma vertical*/
+        background: #90b4ce;
+        position: fixed;
+        left: 0;
+        top: 60px; /*Igual que el alto del navbar*/
+        width: 100%;
+        align-items: center;
+        padding: 20px 0; /*Al detectar una lista, el navegador incluye un padding por defecto a la izquierda, con el 0 se lo quito*/
+        /*Si la pantalla es muy pequeña y hay muchos links en el menú, algunos pueden cortarse y no se veran*/
+        height: calc(100%-60px);
+        overflow-y: auto;
+        
+        left: 100%; /*Mando el menú a la derecha cuando no es visible*/
+        transition: left .3s;
+    }
+    
+    .nav__toggle {
+        display: block;
+    }
+    
+    .nav__menu__visible {
+        left: 0;
+    }
+}
+
 /*SECTIONS*/
+#sec0 {
+    padding: 100px;
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.titulo__portada {
+    color: transparent;
+    text-align: center;
+    font-size: 8rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Anton', sans-serif;
+    background-image: url(../img/cielo.jpg);
+    background-size: cover;
+    background-position-y: center;
+    background-clip: text;
+    /*Asegurarse de que funcione en todos los navegadores:*/
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 #sec1 {
     background: #3da9fc;
 }
@@ -28,8 +159,9 @@ svg {
 }
 
 .caja {
-    width: 70%;
+    width: 85%;
     margin: 0px auto;
+    z-index: 1;
 }
 
 /* CAROUSEL */
@@ -43,7 +175,7 @@ svg {
 .carousel__anterior,
 .carousel__siguiente {
     position: absolute;
-    display:block; /*Para poder editar ancho y alto*/
+    display: block; /*Para poder editar ancho y alto*/
     width: 30px;
     height: 30px;
     border: none;

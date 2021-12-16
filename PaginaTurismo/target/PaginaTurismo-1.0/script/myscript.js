@@ -1,3 +1,16 @@
+const navToggle = document.querySelector(".nav__toggle");
+const navMenu = document.querySelector(".nav__menu");
+
+navToggle.addEventListener("click", function () {
+    navMenu.classList.toggle("nav__menu__visible");
+    
+    if(navMenu.classList.contains("nav__menu__visible")) {
+        navToggle.setAttribute("aria-label", "Cerrar menú");
+    } else {
+        navToggle.setAttribute("aria-label", "Abrir menú");
+    }
+});
+
 //Cuando la página carga, ejecuta una función
 window.addEventListener('load', function () {
     //Al carousel se le pasan primero la lista y luego las opciones que queremos para este
@@ -14,7 +27,7 @@ window.addEventListener('load', function () {
         },
         responsive: [
             {
-                //Pantalla >= 775px
+                //Pantalla >= 800px
                 breakpoint: 800,
                 settings: {
                     slidesToShow: 2,
@@ -24,8 +37,8 @@ window.addEventListener('load', function () {
                 //Pantalla >= 1024px
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4
+                    slidesToShow: 3,
+                    slidesToScroll: 3
                 }
             }
         ]

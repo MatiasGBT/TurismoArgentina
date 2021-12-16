@@ -22,6 +22,7 @@ public class LugarDao implements ILugarDao{
 
     private static final String SQL_DELETE = "DELETE FROM lugar WHERE idlugar=?";
     
+    @Override
     public List<Lugar> listar() {
         Connection conn = null;
         PreparedStatement stmt = null;
