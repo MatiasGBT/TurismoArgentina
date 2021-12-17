@@ -26,6 +26,9 @@ public class ServletControlador extends HttpServlet{
         String accion=req.getParameter("accion");
         if(accion!=null) {
             switch (accion){
+                case "encontrar":
+                    this.mostrarLugar(req, resp);
+                    break;
                 default:
                     this.accionDefault(req, resp);
             }
@@ -39,5 +42,14 @@ public class ServletControlador extends HttpServlet{
         HttpSession sesion=req.getSession();
         sesion.setAttribute("lugares", lugares);
         resp.sendRedirect("principal.jsp");
+    }
+    
+    private void mostrarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int idLugar=Integer.parseInt(req.getParameter("idLugar"));
+        Lugar lugar=new Lugar(idLugar);
+        Lugar lugarFinal=datos.encontrar(lugar);
+        req.setAttribute("lugar", lugarFinal);
+        String jspBusqueda="/WEB-INF/paginas/detalles/mostrarLugar.jsp";
+        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
     }
 }

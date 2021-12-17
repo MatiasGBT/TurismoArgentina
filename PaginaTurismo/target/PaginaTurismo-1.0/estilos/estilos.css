@@ -131,6 +131,7 @@ svg {
     display: flex;
     align-items: center;
     min-height: 100vh;
+    justify-content: center;
 }
 
 .titulo__portada {
