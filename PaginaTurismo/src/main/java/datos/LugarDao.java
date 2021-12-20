@@ -6,20 +6,17 @@ import java.util.*;
 
 public class LugarDao implements ILugarDao {
 
-    private static final String SQL_SELECT = "SELECT idlugar, nombre, descripcion, portada, foto1, foto2, foto3"
+    private static final String SQL_SELECT = "SELECT idlugar, nombre, descripcion, portada, foto1, foto2, foto3, precio"
             + " FROM lugar";
 
-    private static final String SQL_SELECT_BY_ID = "SELECT idlugar, nombre, descripcion, portada, foto1, foto2, foto3"
+    private static final String SQL_SELECT_BY_ID = "SELECT idlugar, nombre, descripcion, portada, foto1, foto2, foto3, precio"
             + " FROM lugar WHERE idlugar = ?";
 
-    private static final String SQL_SELECT_BY_NAME = "SELECT idlugar, nombre, descripcion, portada, foto1, foto2, foto3"
-            + " FROM lugar WHERE nombre = ?";
-
-    private static final String SQL_INSERT = "INSERT INTO lugar(idlugar, nombre, descripcion, portada, foto1, foto2, foto3)"
+    private static final String SQL_INSERT = "INSERT INTO lugar(idlugar, nombre, descripcion, portada, foto1, foto2, foto3, precio)"
             + " VALUES(?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SQL_UPDATE = "UPDATE lugar"
-            + " SET nombre=?, descripcion=?, portada=?, foto1=?, foto2=?, foto3=? WHERE idlugar=?";
+            + " SET nombre=?, descripcion=?, portada=?, foto1=?, foto2=?, foto3=?, precio=? WHERE idlugar=?";
 
     private static final String SQL_DELETE = "DELETE FROM lugar WHERE idlugar=?";
 
@@ -42,8 +39,9 @@ public class LugarDao implements ILugarDao {
                 String foto1 = rs.getString("foto1");
                 String foto2 = rs.getString("foto2");
                 String foto3 = rs.getString("foto3");
+                double precio = rs.getDouble("precio");
 
-                lugar = new Lugar(idLugar, nombre, descripcion, portada, foto1, foto2, foto3);
+                lugar = new Lugar(idLugar, nombre, descripcion, portada, foto1, foto2, foto3, precio);
                 lugares.add(lugar);
             }
         } catch (SQLException ex) {
@@ -73,6 +71,7 @@ public class LugarDao implements ILugarDao {
             String foto1 = rs.getString("foto1");
             String foto2 = rs.getString("foto2");
             String foto3 = rs.getString("foto3");
+            double precio = rs.getDouble("precio");
 
             lugar.setNombre(nombre);
             lugar.setDescripcion(descripcion);
@@ -80,6 +79,7 @@ public class LugarDao implements ILugarDao {
             lugar.setFoto1(foto1);
             lugar.setFoto2(foto2);
             lugar.setFoto3(foto3);
+            lugar.setPrecio(precio);
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {

@@ -98,7 +98,7 @@ svg {
         width: 50px;
         height: 50px;
     }
-    
+
     .nav__menu {
         flex-direction: column; /*Para que los links se vean de forma vertical*/
         background: #90b4ce;
@@ -111,15 +111,15 @@ svg {
         /*Si la pantalla es muy pequeña y hay muchos links en el menú, algunos pueden cortarse y no se veran*/
         height: calc(100%-60px);
         overflow-y: auto;
-        
+
         left: 100%; /*Mando el menú a la derecha cuando no es visible*/
         transition: left .3s;
     }
-    
+
     .nav__toggle {
         display: block;
     }
-    
+
     .nav__menu__visible {
         left: 0;
     }
@@ -163,6 +163,45 @@ svg {
     width: 85%;
     margin: 0px auto;
     z-index: 1;
+}
+
+#sec2 {
+    color: #3da9fc;
+    background: white;
+    text-align: center;
+}
+
+.flexbox {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    flex-direction: column;
+}
+
+@media (min-width: 992px) {
+    .flexbox {
+        flex-direction: row;
+    }
+}
+
+.flexbox div {
+    margin-bottom: 10px;
+}
+
+.btn__actividades {
+    border: 2px solid #3da9fc;
+    color: #3da9fc;
+    padding: 7px;
+    background: transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn__actividades:hover {
+    color: white;
+    background: #3da9fc;
+    transition: .3s;
 }
 
 /* CAROUSEL */

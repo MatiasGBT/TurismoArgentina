@@ -27,7 +27,7 @@
             </button>
         </div>
 
-        <%--DIV para indicadores, role tablist ess solo para indicar que va a ser una lista de elementos de tabulación--%>
-        <div role="rablist" class="carousel__indicadores"></div>
+        <%--DIV para indicadores, role tablist es solo para indicar que va a ser una lista de elementos de tabulación--%>
+        <div role="tablist" class="carousel__indicadores"></div>
     </div>
 </div>

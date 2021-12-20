@@ -1,5 +1,5 @@
-datos\Conexion.class
 web\ServletControlador.class
 dominio\Lugar.class
+datos\Conexion.class
 datos\LugarDao.class
 datos\ILugarDao.class

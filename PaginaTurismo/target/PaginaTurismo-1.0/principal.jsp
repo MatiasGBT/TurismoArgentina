@@ -11,6 +11,8 @@
             <jsp:include page="WEB-INF/paginas/index/seccionPortada.jsp"/>
             <%--CAROUSEL--%>
             <jsp:include page="WEB-INF/paginas/index/seccionCarousel.jsp"/>
+            <%--ACTIVIDADES--%>
+            <jsp:include page="WEB-INF/paginas/index/seccionActividades.jsp"/>
         </main>
 
         <%--SCRIPTS--%>

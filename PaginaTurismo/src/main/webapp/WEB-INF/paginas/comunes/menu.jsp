@@ -5,9 +5,9 @@
             <i class="fas fa-bars"></i>
         </button>
         <ul class="nav__menu">
-            <li class="nav__menu__item"><a href="${pageContext.request.contextPath}/ServletControlador" class="nav__menu__link"><i class="fas fa-home"></i> Inicio</a></li>
+            <li class="nav__menu__item"><a href="#" class="nav__menu__link"><i class="fas fa-home"></i> Inicio</a></li>
             <li class="nav__menu__item"><a href="#turismo" class="nav__menu__link"><i class="fas fa-suitcase-rolling"></i> Turismo</a></li>
-            <li class="nav__menu__item"><a href="#" class="nav__menu__link"><i class="fas fa-snowboarding"></i> Actividades</a></li>
+            <li class="nav__menu__item"><a href="#sec2" class="nav__menu__link"><i class="fas fa-snowboarding"></i> Actividades</a></li>
             <li class="nav__menu__item"><a href="#" class="nav__menu__link"><i class="fas fa-comments"></i> Contacto</a></li>
             <li class="nav__menu__item"><a href="#" class="nav__menu__link"><i class="fas fa-user"></i> Usuario</a></li>
         </ul>

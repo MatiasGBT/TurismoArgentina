@@ -28,12 +28,17 @@ svg {
     padding: 10px;
 }
 
-.caja img {
+.caja h2 {
+    margin-bottom: 10px;
+}
+
+.img__caja {
+    max-width: 100vh;
     cursor: pointer;
     transition: .2s;
 }
 
-.caja img:hover {
+.img__caja:hover {
     transform: scale(1.05);
 }
 
@@ -177,10 +182,18 @@ svg {
     text-align: center;
 }
 
+#sec1 img {
+    width: 400px;
+}
+
 @media (min-width: 992px) {
     #sec1 {
         text-align: start;
         flex-direction: row;
+    }
+    
+    #sec1 img {
+        width: auto;
     }
 }
 
@@ -207,4 +220,42 @@ svg {
 
 #galeria a img:hover {
     transform: scale(1.05);
+}
+
+#sec3 {
+    background: #3da9fc;
+    text-align: center;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center; 
+}
+
+@media (min-width: 992px) {
+    .flexbox {
+        flex-direction: row;
+    }
+}
+
+.btn__comprar {
+    border: 2px solid white;
+    color: white;
+    padding: 7px;
+    background: transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 1rem;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.btn__comprar:hover {
+    color: #3da9fc;
+    background: white;
+    transition: .3s;
 }

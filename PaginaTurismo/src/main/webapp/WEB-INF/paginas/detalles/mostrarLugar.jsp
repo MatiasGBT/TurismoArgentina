@@ -12,6 +12,8 @@
             <jsp:include page="/WEB-INF/paginas/detalles/seccionDescripcion.jsp"/>
             <%--GALERIA--%>
             <jsp:include page="/WEB-INF/paginas/detalles/seccionGaleria.jsp"/>
+            <%--VIAJA--%>
+            <jsp:include page="/WEB-INF/paginas/detalles/seccionViaja.jsp"/>
         </main>
         
         <%--SCRIPTS--%>

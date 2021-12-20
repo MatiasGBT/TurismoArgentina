@@ -8,6 +8,7 @@ public class Lugar {
     private String foto1;
     private String foto2;
     private String foto3;
+    private double precio;
     
     public Lugar() {
         
@@ -16,21 +17,18 @@ public class Lugar {
     public Lugar(int idLugar) {
         this.idLugar=idLugar;
     }
-    
-    public Lugar(String nombre) {
-        this.nombre=nombre;
-    }
 
-    public Lugar(String nombre, String descripcion, String portada, String foto1, String foto2, String foto3) {
+    public Lugar(String nombre, String descripcion, String portada, String foto1, String foto2, String foto3, double precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.portada = portada;
         this.foto1 = foto1;
         this.foto2 = foto2;
         this.foto3 = foto3;
+        this.precio = precio;
     }
 
-    public Lugar(int idLugar, String nombre, String descripcion, String portada, String foto1, String foto2, String foto3) {
+    public Lugar(int idLugar, String nombre, String descripcion, String portada, String foto1, String foto2, String foto3, double precio) {
         this.idLugar = idLugar;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -38,6 +36,7 @@ public class Lugar {
         this.foto1 = foto1;
         this.foto2 = foto2;
         this.foto3 = foto3;
+        this.precio = precio;
     }
 
     public int getIdLugar() {
@@ -94,6 +93,14 @@ public class Lugar {
 
     public void setFoto3(String foto3) {
         this.foto3 = foto3;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     @Override
