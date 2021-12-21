@@ -16,6 +16,9 @@
             <jsp:include page="/WEB-INF/paginas/detalles/seccionViaja.jsp"/>
         </main>
         
+        <%--FOOTER--%>
+        <jsp:include page="/WEB-INF/paginas/comunes/footer.jsp"/>
+        
         <%--SCRIPTS--%>
         <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
         <jsp:include page="/WEB-INF/paginas/comunes/scripts.jsp"/>

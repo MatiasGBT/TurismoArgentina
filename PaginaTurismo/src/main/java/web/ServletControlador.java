@@ -1,4 +1,3 @@
-
 package web;
 
 import datos.*;
@@ -28,8 +27,11 @@ public class ServletControlador extends HttpServlet{
         String accion=req.getParameter("accion");
         if(accion!=null) {
             switch (accion){
-                case "encontrar":
+                case "mostrar":
                     this.mostrarLugar(req, resp);
+                    break;
+                case "listar":
+                    this.mostrarActividades(req, resp);
                     break;
                 default:
                     this.accionDefault(req, resp);
@@ -41,7 +43,7 @@ public class ServletControlador extends HttpServlet{
     
     private void accionDefault(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Lugar> lugares=datosL.listar();
-        List<Actividad> actividades=datosA.listar();
+        List<Actividad> actividades=datosA.generar();
         HttpSession sesion1=req.getSession();
         HttpSession sesion2=req.getSession();
         sesion1.setAttribute("lugares", lugares);
@@ -55,6 +57,13 @@ public class ServletControlador extends HttpServlet{
         Lugar lugarFinal=datosL.encontrar(lugar);
         req.setAttribute("lugar", lugarFinal);
         String jspBusqueda="/WEB-INF/paginas/detalles/mostrarLugar.jsp";
+        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+    }
+    
+    private void mostrarActividades (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Actividad> actividades=datosA.listar();
+        req.setAttribute("actividades", actividades);
+        String jspBusqueda="/WEB-INF/paginas/actividades/mostrarActividades.jsp";
         req.getRequestDispatcher(jspBusqueda).forward(req, resp);
     }
 }

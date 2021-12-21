@@ -26,6 +26,36 @@ public class ActividadDao implements IActividadDao {
 
     @Override
     public List<Actividad> listar() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Actividad actividad;
+        List<Actividad> actividades = new ArrayList<>();
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                int idActividad = rs.getInt("idactividad");
+                String nombre = rs.getString("nombre");
+                String imagen = rs.getString("imagen");
+                double precio = rs.getDouble("precio");
+
+                actividad = new Actividad(idActividad, nombre, imagen, precio);
+                actividades.add(actividad);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return actividades;
+    }
+    
+    @Override
+    public List<Actividad> generar() {
         int n1 = (int) (Math.random() * 3 + 1);
         int n2 = (int) (Math.random() * 3 + 4);
         int n3 = (int) (Math.random() * 3 + 7);

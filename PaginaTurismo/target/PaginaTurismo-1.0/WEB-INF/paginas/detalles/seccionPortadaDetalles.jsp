@@ -1,4 +1,4 @@
-<section id="sec0">
+<section id="seccion__portada">
     <h1 class="titulo__portada">${lugar.nombre}</h1>
 </section>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

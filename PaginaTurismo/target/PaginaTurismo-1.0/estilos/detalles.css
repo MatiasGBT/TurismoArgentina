@@ -24,29 +24,11 @@ svg {
     display: flex;
 }
 
-.caja {
-    padding: 10px;
-}
-
-.caja h2 {
-    margin-bottom: 10px;
-}
-
-.img__caja {
-    max-width: 100vh;
-    cursor: pointer;
-    transition: .2s;
-}
-
-.img__caja:hover {
-    transform: scale(1.05);
-}
-
-.fondoAzul {
+.fondo__azul {
     background: #3da9fc;
 }
 
-.fondoBlanco {
+.fondo__blanco {
     background: white;
     padding-top: 30px;
 }
@@ -151,8 +133,8 @@ svg {
     }
 }
 
-/*SECTIONS*/
-#sec0 {
+/*SECCION PORTADA*/
+#seccion__portada {
     padding: 100px;
     display: flex;
     align-items: center;
@@ -172,7 +154,8 @@ svg {
     -webkit-text-stroke-color: black;
 }
 
-#sec1 {
+/*SECCION DESCRIPCION*/
+#seccion__descripcion {
     padding: 5%;
     background: #3da9fc;
     display: flex;
@@ -182,22 +165,41 @@ svg {
     text-align: center;
 }
 
-#sec1 img {
+#seccion__descripcion img {
     width: 400px;
 }
 
 @media (min-width: 992px) {
-    #sec1 {
+    #seccion__descripcion {
         text-align: start;
         flex-direction: row;
     }
     
-    #sec1 img {
+    #seccion__descripcion img {
         width: auto;
     }
 }
 
-#sec2 {
+.caja {
+    padding: 10px;
+}
+
+.caja h2 {
+    margin-bottom: 10px;
+}
+
+.img__caja {
+    max-width: 100vh;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.img__caja:hover {
+    transform: scale(1.05);
+}
+
+/*SECCION GALERIA*/
+#seccion__galeria {
     background: white;
     color: #3da9fc;
     text-align: center;
@@ -222,7 +224,8 @@ svg {
     transform: scale(1.05);
 }
 
-#sec3 {
+/*SECCION VIAJA*/
+#seccion__viaja {
     background: #3da9fc;
     text-align: center;
 }
@@ -258,4 +261,13 @@ svg {
     color: #3da9fc;
     background: white;
     transition: .3s;
+}
+
+/*FOOTER*/
+footer {
+    background: white;
+    color: #3da9fc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

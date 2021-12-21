@@ -13,8 +13,13 @@
             <jsp:include page="WEB-INF/paginas/index/seccionCarousel.jsp"/>
             <%--ACTIVIDADES--%>
             <jsp:include page="WEB-INF/paginas/index/seccionActividades.jsp"/>
+            <%--CONTACTO--%>
+            <jsp:include page="WEB-INF/paginas/index/seccionContacto.jsp"/>
         </main>
 
+        <%--FOOTER--%>
+        <jsp:include page="WEB-INF/paginas/comunes/footer.jsp"/>
+        
         <%--SCRIPTS--%>
         <jsp:include page="WEB-INF/paginas/comunes/scripts.jsp"/>
     </body>

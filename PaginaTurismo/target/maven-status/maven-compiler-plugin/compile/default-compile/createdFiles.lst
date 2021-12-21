@@ -1,5 +1,8 @@
 web\ServletControlador.class
 dominio\Lugar.class
+dominio\Actividad.class
+datos\IActividadDao.class
 datos\Conexion.class
 datos\LugarDao.class
+datos\ActividadDao.class
 datos\ILugarDao.class
