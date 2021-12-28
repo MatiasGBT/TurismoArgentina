@@ -12,7 +12,7 @@
             <br>
             <label>Comentarios:*</label>
             <br>
-            <textarea cols="30" rows="10"  minlength="100" maxlength="600" placeholder="Escribe un comentario de al menos 100 caracteres con un máximo de 600." required=""></textarea>
+            <textarea name="comentario" cols="30" rows="10"  minlength="100" maxlength="600" placeholder="Escribe un comentario de al menos 100 caracteres con un máximo de 600." required></textarea>
         </div>
     </form>
     <input type="submit" value="Enviar" form="formulario__contacto">

@@ -25,6 +25,68 @@ svg {
     display: flex;
 }
 
+/*INICIO DE SESIÓN O REGISTRO (INDEX)*/
+#contenedor__index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.centro {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 50%;
+    height: 30%;
+    margin: auto;
+}
+
+.centro a {
+    text-decoration: none;
+}
+
+#iniciar__sesion {
+    background: transparent;
+    border: 2px white solid;
+    border-radius: 25px;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    transition: .3s;
+    margin-top: 15px;
+    width: 100%;
+}
+
+#iniciar__sesion:hover {
+    background: white;
+    color: #3da9fc;
+}
+
+#registrarse {
+    background: white;
+    border: 2px white solid;
+    border-radius: 25px;
+    color: #3da9fc;
+    padding: 10px;
+    cursor: pointer;
+    transition: .3s;
+    width: 100%;
+    margin-top: 15px;
+}
+
+@media (min-width: 992px) {
+    #iniciar__sesion {
+        width: 20%;
+    }
+    #registrarse {
+        width: 20%;
+        margin-top: 0px;
+    }
+}
+
 /*MENU NAVEGACION*/
 .header {
     background: #3da9fc;
@@ -343,11 +405,6 @@ svg {
     border: 2px solid white;
     border-radius: 25px;
     background-color: transparent;
-}
-
-#formulario__contacto input:focus, 
-#formulario__contacto textarea:focus {
-    outline: transparent;
 }
 
 #formulario__contacto input:focus:invalid, 

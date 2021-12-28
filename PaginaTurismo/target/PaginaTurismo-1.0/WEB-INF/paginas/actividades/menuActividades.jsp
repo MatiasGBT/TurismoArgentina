@@ -6,7 +6,6 @@
         </button>
         <ul class="nav__menu">
             <li class="nav__menu__item"><a href="${pageContext.request.contextPath}/ServletControlador" class="nav__menu__link"><i class="fas fa-home"></i> Inicio</a></li>
-            <li class="nav__menu__item"><a href="#" class="nav__menu__link"><i class="fas fa-user"></i> Usuario</a></li>
         </ul>
     </nav>
 </header>
