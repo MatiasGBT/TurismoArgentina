@@ -4,7 +4,7 @@
         <p>${lugar.descripcion}</p>
     </div>
     <div class="caja">
-        <img src="${lugar.portada}" data-fancybox="galeria" class="img__caja">
+        <img src="ServletImagen?accion=listarPortada&id=${lugar.idLugar}" data-fancybox="galeria" class="img__caja">
     </div>
 </section>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="fondo__azul" id="gal">

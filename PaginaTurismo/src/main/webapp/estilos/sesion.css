@@ -86,6 +86,8 @@ nav {
 
 nav ul {
     list-style: none;
+    padding: 0;
+    text-align: center;
 }
 
 nav ul li a {
@@ -281,6 +283,14 @@ td {
     flex-direction: column;
 }
 
+#cuerpo__editar h1 {
+    margin-bottom: 5px;
+}
+
+#cuerpo__editar div {
+    margin-bottom: 5px;
+}
+
 #formulario__sesion input, 
 #formulario__sesion textarea {
     display: block;
@@ -300,4 +310,8 @@ td {
 #formulario__sesion input:focus:valid, 
 #formulario__sesion textarea:focus:valid {
     outline: 2px solid yellowgreen;
+}
+
+.nota__formulario {
+    font-size: .75rem;
 }

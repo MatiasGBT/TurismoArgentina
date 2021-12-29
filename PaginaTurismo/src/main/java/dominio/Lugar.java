@@ -1,13 +1,15 @@
 package dominio;
 
+import java.io.InputStream;
+
 public class Lugar {
     private int idLugar;
     private String nombre;
     private String descripcion;
-    private String portada;
-    private String foto1;
-    private String foto2;
-    private String foto3;
+    private InputStream portada;
+    private InputStream foto1;
+    private InputStream foto2;
+    private InputStream foto3;
     private double precio;
     
     public Lugar() {
@@ -18,7 +20,7 @@ public class Lugar {
         this.idLugar=idLugar;
     }
 
-    public Lugar(String nombre, String descripcion, String portada, String foto1, String foto2, String foto3, double precio) {
+    public Lugar(String nombre, String descripcion, InputStream portada, InputStream foto1, InputStream foto2, InputStream foto3, double precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.portada = portada;
@@ -28,7 +30,7 @@ public class Lugar {
         this.precio = precio;
     }
 
-    public Lugar(int idLugar, String nombre, String descripcion, String portada, String foto1, String foto2, String foto3, double precio) {
+    public Lugar(int idLugar, String nombre, String descripcion, InputStream portada, InputStream foto1, InputStream foto2, InputStream foto3, double precio) {
         this.idLugar = idLugar;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -63,35 +65,35 @@ public class Lugar {
         this.descripcion = descripcion;
     }
 
-    public String getPortada() {
+    public InputStream getPortada() {
         return portada;
     }
 
-    public void setPortada(String portada) {
+    public void setPortada(InputStream portada) {
         this.portada = portada;
     }
 
-    public String getFoto1() {
+    public InputStream getFoto1() {
         return foto1;
     }
 
-    public void setFoto1(String foto1) {
+    public void setFoto1(InputStream foto1) {
         this.foto1 = foto1;
     }
 
-    public String getFoto2() {
+    public InputStream getFoto2() {
         return foto2;
     }
 
-    public void setFoto2(String foto2) {
+    public void setFoto2(InputStream foto2) {
         this.foto2 = foto2;
     }
 
-    public String getFoto3() {
+    public InputStream getFoto3() {
         return foto3;
     }
 
-    public void setFoto3(String foto3) {
+    public void setFoto3(InputStream foto3) {
         this.foto3 = foto3;
     }
 

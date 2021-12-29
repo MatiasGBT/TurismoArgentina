@@ -3,7 +3,7 @@
     <head>
         <jsp:include page="/WEB-INF/paginas/detalles/etiquetasHeadDetalles.jsp"/>
     </head>
-    <body style="background-image: url(${lugar.portada})";>
+    <body style="background-image: url(ServletImagen?accion=listarPortada&id=${lugar.idLugar})";>
         <jsp:include page="/WEB-INF/paginas/detalles/menuDetalles.jsp"/>
         <main>
             <%--PORTADA--%>

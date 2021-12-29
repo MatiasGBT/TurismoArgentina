@@ -25,7 +25,7 @@
                            class="btn btn__editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=borrarLugar&idLugar=${lugar.idLugar}"
+                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=eliminarLugar&idLugar=${lugar.idLugar}"
                            class="btn btn__borrar">
                             <i class="fas fa-trash"></i>
                         </a>
@@ -34,7 +34,7 @@
             </c:forEach>
         </tbody>
     </table>
-    <a href="${pageContext.request.contextPath}/ServletControlador?accion=agregar"
+    <a href="${pageContext.request.contextPath}/ServletControlador?accion=agregarLugar"
        class="btn__agregar">
         Agregar sitio turístico
     </a>

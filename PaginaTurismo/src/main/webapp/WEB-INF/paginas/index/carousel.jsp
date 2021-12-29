@@ -14,7 +14,7 @@
             <div class="carousel__lista">
                 <c:forEach var="lugar" items="${lugares}">
                     <div class="carousel__elemento">
-                        <img src="${lugar.portada}" alt="${lugar.nombre}">
+                        <img src="ServletImagen?accion=listarPortada&id=${lugar.idLugar}" alt="${lugar.nombre}">
                         <a href="${pageContext.request.contextPath}/ServletControlador?accion=mostrar&idLugar=${lugar.idLugar}" title="Ver detalles">
                             <button class="btn__carousel">${lugar.nombre}</button>
                         </a>

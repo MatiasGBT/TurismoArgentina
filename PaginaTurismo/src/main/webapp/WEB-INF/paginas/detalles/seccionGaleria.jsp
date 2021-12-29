@@ -1,14 +1,14 @@
 <section id="seccion__galeria">
     <h1>Galería</h1>
     <div id="galeria">
-        <a href="${lugar.foto1}" data-fancybox="galeria">
-            <img src="${lugar.foto1}">
+        <a href="ServletImagen?accion=listarFoto1&id=${lugar.idLugar}" data-fancybox="galeria">
+            <img src="ServletImagen?accion=listarFoto1&id=${lugar.idLugar}">
         </a>
-        <a href="${lugar.foto2}" data-fancybox="galeria">
-            <img src="${lugar.foto2}">
+        <a href="ServletImagen?accion=listarFoto2&id=${lugar.idLugar}" data-fancybox="galeria">
+            <img src="ServletImagen?accion=listarFoto2&id=${lugar.idLugar}">
         </a>
-        <a href="${lugar.foto3}" data-fancybox="galeria">
-            <img src="${lugar.foto3}">
+        <a href="ServletImagen?accion=listarFoto3&id=${lugar.idLugar}" data-fancybox="galeria">
+            <img src="ServletImagen?accion=listarFoto3&id=${lugar.idLugar}">
         </a>
     </div>
 </section>
