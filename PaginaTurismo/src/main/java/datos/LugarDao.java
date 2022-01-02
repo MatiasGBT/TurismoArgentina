@@ -163,9 +163,9 @@ public class LugarDao implements ILugarDao {
         }
     }
     
-    //Métodos para convertir los bytes en una imagen (son 4, uno para cada imagen, es decir, portada, foto1, foto2 y foto3)
+    //Método para convertir los bytes en una imagen
     @Override
-    public void listarPortada(int id, HttpServletResponse resp) {
+    public void escribirImagen(int id, HttpServletResponse resp, int num) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -181,136 +181,16 @@ public class LugarDao implements ILugarDao {
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if(rs.next()) {
-                inputStream=rs.getBinaryStream("portada");
-            }
-            
-            bufferedInputStream=new BufferedInputStream(inputStream);
-            bufferedOutputStream= new BufferedOutputStream(outputStream);
-            int i=0;
-            while((i=bufferedInputStream.read())!=-1) {
-                bufferedOutputStream.write(i);
-            }
-        } catch (SQLException | IOException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            try {
-                bufferedOutputStream.close();
-                bufferedInputStream.close();
-                outputStream.close();
-                inputStream.close();
-            } catch (IOException ex) {
-                ex.printStackTrace(System.out);
-            }
-            Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
-        }
-    }
-    
-    @Override
-    public void listarFoto1(int id, HttpServletResponse resp) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        InputStream inputStream=null;
-        OutputStream outputStream=null;
-        BufferedInputStream bufferedInputStream=null;
-        BufferedOutputStream bufferedOutputStream=null;
-        resp.setContentType("image/*");
-        try {
-            outputStream=resp.getOutputStream();
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
-            stmt.setInt(1, id);
-            rs = stmt.executeQuery();
-            if(rs.next()) {
-                inputStream=rs.getBinaryStream("foto1");
-            }
-            
-            bufferedInputStream=new BufferedInputStream(inputStream);
-            bufferedOutputStream= new BufferedOutputStream(outputStream);
-            int i=0;
-            while((i=bufferedInputStream.read())!=-1) {
-                bufferedOutputStream.write(i);
-            }
-        } catch (SQLException | IOException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            try {
-                bufferedOutputStream.close();
-                bufferedInputStream.close();
-                outputStream.close();
-                inputStream.close();
-            } catch (IOException ex) {
-                ex.printStackTrace(System.out);
-            }
-            Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
-        }
-    }
-    
-    @Override
-    public void listarFoto2(int id, HttpServletResponse resp) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        InputStream inputStream=null;
-        OutputStream outputStream=null;
-        BufferedInputStream bufferedInputStream=null;
-        BufferedOutputStream bufferedOutputStream=null;
-        resp.setContentType("image/*");
-        try {
-            outputStream=resp.getOutputStream();
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
-            stmt.setInt(1, id);
-            rs = stmt.executeQuery();
-            if(rs.next()) {
-                inputStream=rs.getBinaryStream("foto2");
-            }
-            
-            bufferedInputStream=new BufferedInputStream(inputStream);
-            bufferedOutputStream= new BufferedOutputStream(outputStream);
-            int i=0;
-            while((i=bufferedInputStream.read())!=-1) {
-                bufferedOutputStream.write(i);
-            }
-        } catch (SQLException | IOException ex) {
-            ex.printStackTrace(System.out);
-        } finally {
-            try {
-                bufferedOutputStream.close();
-                bufferedInputStream.close();
-                outputStream.close();
-                inputStream.close();
-            } catch (IOException ex) {
-                ex.printStackTrace(System.out);
-            }
-            Conexion.close(rs);
-            Conexion.close(stmt);
-            Conexion.close(conn);
-        }
-    }
-    
-    @Override
-    public void listarFoto3(int id, HttpServletResponse resp) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        InputStream inputStream=null;
-        OutputStream outputStream=null;
-        BufferedInputStream bufferedInputStream=null;
-        BufferedOutputStream bufferedOutputStream=null;
-        resp.setContentType("image/*");
-        try {
-            outputStream=resp.getOutputStream();
-            conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
-            stmt.setInt(1, id);
-            rs = stmt.executeQuery();
-            if(rs.next()) {
-                inputStream=rs.getBinaryStream("foto3");
+                if(num==1) {
+                    inputStream=rs.getBinaryStream("portada");
+                } else if(num==2) {
+                    inputStream=rs.getBinaryStream("foto1");
+                } else if(num==3) {
+                    inputStream=rs.getBinaryStream("foto2");
+                } else if(num==4) {
+                    inputStream=rs.getBinaryStream("foto3");
+                }
+                
             }
             
             bufferedInputStream=new BufferedInputStream(inputStream);

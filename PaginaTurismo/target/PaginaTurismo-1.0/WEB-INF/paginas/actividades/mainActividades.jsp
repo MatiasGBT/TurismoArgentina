@@ -5,8 +5,8 @@
 <div class="gridbox">
     <c:forEach var="actividad" items="${actividades}">
         <div>
-            <a href="${actividad.imagen}" data-fancybox="galeria">
-                <img src="${actividad.imagen}">
+            <a href="ServletImagen?accion=listarActividad&id=${actividad.idActividad}" data-fancybox="galeria">
+                <img src="ServletImagen?accion=listarActividad&id=${actividad.idActividad}">
             </a>
             <h3>${actividad.nombre}</h3>
             <p>ARS$${actividad.precio} por adulto.</p>

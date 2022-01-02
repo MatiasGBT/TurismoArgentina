@@ -4,10 +4,10 @@
         <jsp:include page="/WEB-INF/paginas/sesion/etiquetasHeadSesion.jsp"/>
         <title>Editar lugar | Turismo Argentina</title>
     </head>
-    <body id="cuerpo__editar">
+    <body id="#cuerpo__formulario__lugar" class="cuerpo__formulario">
         <h1>Editar lugar</h1>
         <div>
-            <form action="${pageContext.request.contextPath}/ServletControlador?accion=modificarLugar&idLugar=${lugar.idLugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
+            <form action="${pageContext.request.contextPath}/ServletPanel?accion=modificarLugar&idLugar=${lugar.idLugar}" method="POST" id="formulario__sesion" enctype="multipart/form-data">
                 <div>
                     <label for="nombre"><i class="fas fa-map-marked-alt"></i> Nombre:</label>
                     <input type="text" name="nombre" required value="${lugar.nombre}">

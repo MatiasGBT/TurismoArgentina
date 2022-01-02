@@ -8,6 +8,7 @@ dominio\Lugar.class
 datos\IActividadDao.class
 datos\Conexion.class
 datos\UsuarioDao.class
+web\ServletPanel.class
 datos\LugarDao.class
 datos\ActividadDao.class
 datos\IUsuarioDao.class

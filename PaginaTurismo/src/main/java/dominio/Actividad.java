@@ -1,9 +1,11 @@
 package dominio;
 
+import java.io.InputStream;
+
 public class Actividad {
     private int idActividad;
     private String nombre;
-    private String imagen;
+    private InputStream imagen;
     private double precio;
     
     public Actividad() {
@@ -14,13 +16,13 @@ public class Actividad {
         this.idActividad=idActividad;
     }
 
-    public Actividad(String nombre, String imagen, double precio) {
+    public Actividad(String nombre, InputStream imagen, double precio) {
         this.nombre = nombre;
         this.imagen = imagen;
         this.precio = precio;
     }
 
-    public Actividad(int idActividad, String nombre, String imagen, double precio) {
+    public Actividad(int idActividad, String nombre, InputStream imagen, double precio) {
         this.idActividad = idActividad;
         this.nombre = nombre;
         this.imagen = imagen;
@@ -43,11 +45,11 @@ public class Actividad {
         this.nombre = nombre;
     }
 
-    public String getImagen() {
+    public InputStream getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(InputStream imagen) {
         this.imagen = imagen;
     }
 

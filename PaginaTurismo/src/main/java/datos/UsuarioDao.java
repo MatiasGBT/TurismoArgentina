@@ -24,7 +24,6 @@ public class UsuarioDao implements IUsuarioDao{
             + "INNER JOIN cargo c ON u.idusuario=c.idcargo "
             + "WHERE u.nombre='" + usuario.getNombre() + "' "
             + "AND u.contraseña='"+ usuario.getContraseña() + "'";
-        System.out.println(SQL);
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;

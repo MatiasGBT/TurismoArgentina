@@ -31,17 +31,11 @@ svg {
     justify-content: center;
     align-items: center;
     text-align: center;
+    height: 100vh;
 }
 
 .centro {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     width: 50%;
-    height: 30%;
-    margin: auto;
 }
 
 .centro a {
@@ -63,6 +57,7 @@ svg {
 #iniciar__sesion:hover {
     background: white;
     color: #3da9fc;
+    transition: .3s;
 }
 
 #registrarse {
@@ -138,6 +133,7 @@ svg {
 
 .nav__menu__link:hover {
     background: lightblue;
+    transition: .5s;
 }
 
 .nav__toggle {
@@ -285,6 +281,7 @@ svg {
     border-radius: 15px;
     cursor: pointer;
     margin-top: 10px;
+    transition: .3s;
 }
 
 .btn__carousel:hover {
@@ -358,6 +355,7 @@ svg {
     border-radius: 15px;
     cursor: pointer;
     margin-top: 10px;
+    transition: .3s;
 }
 
 .btn__actividades:hover {

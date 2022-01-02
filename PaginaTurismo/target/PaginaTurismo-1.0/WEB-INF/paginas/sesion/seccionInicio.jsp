@@ -1,4 +1,4 @@
-<section>
+<section id="inicio">
     <h1>Inicio</h1>
     <p>Datos de interes.</p>
 

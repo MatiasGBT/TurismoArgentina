@@ -39,15 +39,8 @@ public class ServletControlador extends HttpServlet {
                 case "registrarse":
                     this.mostrarRegistro(req, resp);
                     break;
-                //Opciones de sitios turísticos:
-                case "editarLugar":
-                    this.editarLugar(req, resp);
-                    break;
-                case "agregarLugar":
-                    this.agregarLugar(req, resp);
-                    break;
-                case "eliminarLugar":
-                    this.eliminarLugar(req, resp);
+                case "cerrar":
+                    this.cerrarSesion(req, resp);
                     break;
                 default:
                     this.accionDefault(req, resp);
@@ -92,29 +85,6 @@ public class ServletControlador extends HttpServlet {
         req.getRequestDispatcher(jspBusqueda).forward(req, resp);
     }
 
-    //Métodos de sitios turísticos:
-    private void editarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idLugar = Integer.parseInt(req.getParameter("idLugar"));
-        Lugar lugar = datosL.encontrar(new Lugar(idLugar));
-        req.setAttribute("lugar", lugar);
-        String jspBusqueda = "WEB-INF/paginas/sesion/lugar/editarLugar.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
-    }
-    
-    private void agregarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Lugar lugar=new Lugar();
-        req.setAttribute("lugar", lugar);
-        String jspBusqueda = "WEB-INF/paginas/sesion/lugar/agregarLugar.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
-    }
-    
-    private void eliminarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idLugar=Integer.parseInt(req.getParameter("idLugar"));
-        Lugar lugar=new Lugar(idLugar);
-        datosL.eliminar(lugar);
-        this.actualizarPanel(req, resp);
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String accion = req.getParameter("accion");
@@ -123,17 +93,8 @@ public class ServletControlador extends HttpServlet {
                 case "verificar":
                     this.verificar(req, resp);
                     break;
-                case "cerrar":
-                    this.cerrarSesion(req, resp);
-                    break;
                 case "registrarse":
                     this.registrarse(req, resp);
-                    break;
-                case "modificarLugar":
-                    this.actualizarLugar(req, resp);
-                    break;
-                case "insertarLugar":
-                    this.insertarLugar(req, resp);
                     break;
                 default:
                     this.accionDefault(req, resp);
@@ -189,79 +150,13 @@ public class ServletControlador extends HttpServlet {
         }
     }
 
-    private void actualizarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Recuperación valores del formulario:
-        int idLugar = Integer.parseInt(req.getParameter("idLugar"));
-        String nombre = req.getParameter("nombre");
-        String descripcion = req.getParameter("descripcion");
-
-        Part portada = req.getPart("portada");
-        InputStream inputPortada = portada.getInputStream();
-
-        Part foto1 = req.getPart("foto1");
-        InputStream inputFoto1 = foto1.getInputStream();
-
-        Part foto2 = req.getPart("foto2");
-        InputStream inputFoto2 = foto2.getInputStream();
-
-        Part foto3 = req.getPart("foto3");
-        InputStream inputFoto3 = foto3.getInputStream();
-
-        double precio = 0;
-        String precioString = req.getParameter("precio");
-        if (precioString != null && !precioString.equals("")) {
-            precio = Double.parseDouble(precioString);
-        }
-
-        //Creación de objeto lugar
-        Lugar lugar = new Lugar(idLugar, nombre, descripcion, inputPortada, inputFoto1, inputFoto2, inputFoto3, precio);
-
-        //Modificar el lugar en la base de datos
-        datosL.actualizar(lugar);
-
-        //Redirección hacia el panel de nuevo (para que se refresque la info).
-        this.actualizarPanel(req, resp);
-    }
-    
-    private void insertarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //Recuperación valores del formulario:
-        String nombre = req.getParameter("nombre");
-        String descripcion = req.getParameter("descripcion");
-
-        Part portada = req.getPart("portada");
-        InputStream inputPortada = portada.getInputStream();
-
-        Part foto1 = req.getPart("foto1");
-        InputStream inputFoto1 = foto1.getInputStream();
-
-        Part foto2 = req.getPart("foto2");
-        InputStream inputFoto2 = foto2.getInputStream();
-
-        Part foto3 = req.getPart("foto3");
-        InputStream inputFoto3 = foto3.getInputStream();
-
-        double precio = 0;
-        String precioString = req.getParameter("precio");
-        if (precioString != null && !precioString.equals("")) {
-            precio = Double.parseDouble(precioString);
-        }
-
-        //Creación de objeto lugar
-        Lugar lugar = new Lugar(nombre, descripcion, inputPortada, inputFoto1, inputFoto2, inputFoto3, precio);
-
-        //Modificar el lugar en la base de datos
-        datosL.insertar(lugar);
-
-        //Redirección hacia el panel de nuevo (para que se refresque la info).
-        this.actualizarPanel(req, resp);
-    }
-
     private void actualizarPanel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession sesion = req.getSession();
         List<Usuario> usuarios = datosU.listar();
         List<Lugar> lugares = datosL.listar();
         List<Actividad> actividades = datosA.listar();
         sesion.setAttribute("lugares", lugares);
+        sesion.setAttribute("actividades", actividades);
         sesion.setAttribute("totalUsuarios", usuarios.size());
         sesion.setAttribute("totalLugares", lugares.size());
         sesion.setAttribute("totalActividades", actividades.size());

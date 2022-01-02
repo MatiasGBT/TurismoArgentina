@@ -6,7 +6,7 @@
     <div class="flexbox">
         <c:forEach var="actividad" items="${actividades}">
             <div>
-                <img src="${actividad.imagen}">
+                <img src="ServletImagen?accion=listarActividad&id=${actividad.idActividad}">
                     <h3>${actividad.nombre}</h3>
                     <p>ARS$${actividad.precio} por adulto.</p>
                     <a href="${pageContext.request.contextPath}/ServletControlador?accion=listar">

@@ -1,12 +1,14 @@
 package datos;
 
 import dominio.Actividad;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.*;
+import java.util.*;
+import javax.servlet.http.HttpServletResponse;
 
 public class ActividadDao implements IActividadDao {
 
@@ -14,10 +16,13 @@ public class ActividadDao implements IActividadDao {
             + " FROM actividad";
 
     private static final String SQL_SELECT_BY_ID = "SELECT idactividad, nombre, imagen, precio"
+            + " FROM actividad WHERE idactividad = ?";
+    
+    private static final String SQL_SELECT_BY_RANDOM_ID = "SELECT idactividad, nombre, imagen, precio"
             + " FROM actividad WHERE idactividad IN(?,?,?)";
 
-    private static final String SQL_INSERT = "INSERT INTO actividad(idactividad, nombre, imagen, precio)"
-            + " VALUES(?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO actividad(nombre, imagen, precio)"
+            + " VALUES(?, ?, ?)";
 
     private static final String SQL_UPDATE = "UPDATE actividad"
             + " SET nombre=?, imagen=?, precio=? WHERE idactividad=?";
@@ -38,7 +43,7 @@ public class ActividadDao implements IActividadDao {
             while (rs.next()) {
                 int idActividad = rs.getInt("idactividad");
                 String nombre = rs.getString("nombre");
-                String imagen = rs.getString("imagen");
+                InputStream imagen = rs.getBinaryStream("imagen");
                 double precio = rs.getDouble("precio");
 
                 actividad = new Actividad(idActividad, nombre, imagen, precio);
@@ -53,12 +58,18 @@ public class ActividadDao implements IActividadDao {
         }
         return actividades;
     }
-    
+
     @Override
     public List<Actividad> generar() {
-        int n1 = (int) (Math.random() * 3 + 1);
-        int n2 = (int) (Math.random() * 3 + 4);
-        int n3 = (int) (Math.random() * 3 + 7);
+        int n1;
+        int n2;
+        int n3;
+        do {
+            n1 = (int) (Math.random() * 9 + 1);
+            n2 = (int) (Math.random() * 9 + 1);
+            n3 = (int) (Math.random() * 9 + 1);
+        } while (n1 == n2 || n2 == n3 || n1==n3);
+        
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -66,7 +77,7 @@ public class ActividadDao implements IActividadDao {
         List<Actividad> actividades = new ArrayList<>();
         try {
             conn = Conexion.getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
+            stmt = conn.prepareStatement(SQL_SELECT_BY_RANDOM_ID);
             stmt.setInt(1, n1);
             stmt.setInt(2, n2);
             stmt.setInt(3, n3);
@@ -74,10 +85,10 @@ public class ActividadDao implements IActividadDao {
             while (rs.next()) {
                 int idActividad = rs.getInt("idactividad");
                 String nombre = rs.getString("nombre");
-                String imagen = rs.getString("imagen");
+                InputStream imagen = rs.getBinaryStream("imagen");
                 double precio = rs.getDouble("precio");
-                
-                actividad=new Actividad(idActividad, nombre, imagen, precio);
+
+                actividad = new Actividad(idActividad, nombre, imagen, precio);
                 actividades.add(actividad);
             }
         } catch (SQLException ex) {
@@ -90,4 +101,134 @@ public class ActividadDao implements IActividadDao {
         return actividades;
     }
 
+    @Override
+    public Actividad encontrar(Actividad actividad) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
+            stmt.setInt(1, actividad.getIdActividad());
+            rs = stmt.executeQuery();
+            rs.next();
+            String nombre = rs.getString("nombre");
+            InputStream imagen = rs.getBinaryStream("imagen");
+            double precio = rs.getDouble("precio");
+
+            actividad.setNombre(nombre);
+            actividad.setImagen(imagen);
+            actividad.setPrecio(precio);
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return actividad;
+    }
+    
+    @Override
+    public void insertar(Actividad actividad) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_INSERT);
+            stmt.setString(1, actividad.getNombre());
+            stmt.setBlob(2, actividad.getImagen());
+            stmt.setDouble(3, actividad.getPrecio());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+    }
+    
+    @Override
+    public void actualizar(Actividad actividad) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, actividad.getNombre());
+            stmt.setBlob(2, actividad.getImagen());
+            stmt.setDouble(3, actividad.getPrecio());
+            stmt.setInt(4, actividad.getIdActividad());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+    }
+    
+    @Override
+    public void eliminar(Actividad actividad) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE);
+            stmt.setInt(1, actividad.getIdActividad());
+            
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+    }
+    
+    //Método para convertir los bytes en una imagen
+    @Override
+    public void escribirImagen(int id, HttpServletResponse resp) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        resp.setContentType("image/*");
+        try {
+            outputStream = resp.getOutputStream();
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                inputStream = rs.getBinaryStream("imagen");
+            }
+
+            bufferedInputStream = new BufferedInputStream(inputStream);
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            int i = 0;
+            while ((i = bufferedInputStream.read()) != -1) {
+                bufferedOutputStream.write(i);
+            }
+        } catch (SQLException | IOException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            try {
+                bufferedOutputStream.close();
+                bufferedInputStream.close();
+                outputStream.close();
+                inputStream.close();
+            } catch (IOException ex) {
+                ex.printStackTrace(System.out);
+            }
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+    }
 }

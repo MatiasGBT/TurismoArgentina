@@ -71,7 +71,7 @@ html {
     margin-top: 20px;
 }
 
-/*PANEL DE ADMINISTRADOR*/
+/*  ---  PANEL DE ADMINISTRADOR  ---  */
 #cuerpo__panel {
     background: white;
     width: 100%;
@@ -79,9 +79,11 @@ html {
     font-size: 1.25rem;
 }
 
+/*MENU DE NAVEGACION*/
 nav {
     background: #3da9fc;
     font-size: 1.5rem;
+    display: none;
 }
 
 nav ul {
@@ -93,11 +95,12 @@ nav ul {
 nav ul li a {
     padding: 10px;
     transition: .3s;
+    border-radius: 25px;
 }
 
 nav ul li a:hover {
     background: #90b4ce;
-    border-radius: 25px;
+    transition: .3s;
 }
 
 nav ul li a {
@@ -112,10 +115,12 @@ nav ul li a {
 #contenido__panel {
     color: black;
     word-wrap: break-word;
+    text-align: center;
 }
 
 @media (min-width: 992px) {
     nav {
+        display: block;
         height: 100vh;
         width: 20%;
         padding: 25px;
@@ -130,6 +135,7 @@ nav ul li a {
         width: 80%;
         padding: 25px;
         margin-left: 20%;
+        text-align: start;
     }
 
     #logo {
@@ -144,51 +150,17 @@ nav ul li a {
     }
 }
 
-/*SECCIONES DEL PANEL*/
-/*SECCION DE INICIO*/
-#caja__cards {
-    display: flex;
-    justify-content: space-between;
-}
-
-.contenedor__datos {
-    margin-top: 25px;
-    color: white;
-    text-align: center;
-    padding: 25px;
-    width: 33%;
-}
-
-.contenedor__datos p {
-    margin-top: 10px;
-}
-
-.aclaracion {
-    text-align: center;
-    font-size: 1rem;
-}
-
-#cantidad__usuarios {
-    background: #90b4ce;
-}
-
-#cantidad__lugares {
-    background: #3da9fc;
-}
-
-#cantidad__actividades {
-    background: #094067;
-}
-
-/*SECCION SITIOS*/
-#sitios {
+/*  ---  SECCIONES DEL PANEL  ---  */
+/*  ---  ESTILOS COMUNES DE LAS SECCIONES  ---  */
+.seccion {
     margin-top: 15px;
 }
 
+/*TABLA*/
 table {
     font-size: 1rem;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 25px;
     color: white;
 }
 
@@ -202,8 +174,22 @@ tbody {
 
 td {
     text-align: center;
-    width: 33%;
     padding: 0;
+    height: 60px;
+}
+
+#tabledata__1 {
+    width: 20%
+}
+
+#tabledata__2 {
+    width: 40%
+}
+
+@media (min-width: 992px) {
+    #tabledata__1, #tabledata__2 {
+        width: 33%;
+    }
 }
 
 .flex {
@@ -217,9 +203,25 @@ td {
     color: white;
     display: block;
     width: 34%;
-    height: 30px;
-    line-height: 30px;
+    height: 60px;
+    line-height: 60px;
     margin: auto;
+    transition: .3s;
+    cursor: pointer;
+}
+
+@media (min-width: 992px) {
+    td {
+        height: fit-content;
+    }
+    
+    .btn {
+        height: 40px;
+        line-height: 40px;
+    }
+}
+
+.btn:hover {
     transition: .3s;
 }
 
@@ -250,7 +252,13 @@ td {
     transition: .3s;
     /*Para que se ponga a la izquierda.*/
     position: absolute;
-    right: 25px; /*Mismo tamaño que el padding que tiene el contenedor principal*/
+    right: 0;
+}
+
+@media (min-width: 992px) {
+    .btn__agregar {
+        right: 25px; /*Mismo tamaño que el padding que tiene el contenedor principal*/
+    }
 }
 
 .btn__ver:hover {
@@ -267,11 +275,20 @@ td {
 
 .btn__agregar:hover {
     background: green;
+    transition: .3s;
     color: white;
 }
 
-/*SECCION SITIO FORMULARIO EDITAR*/
-#cuerpo__editar {
+/*FORMULARIO EDITAR*/
+#cuerpo__formulario__lugar {
+    
+}
+
+#cuerpo__formulario__actividad {
+    height: 100vh;
+}
+
+.cuerpo__formulario {
     background: #3da9fc;
     color: white;
     font-family: 'Marcellus', serif;
@@ -283,15 +300,23 @@ td {
     flex-direction: column;
 }
 
-#cuerpo__editar h1 {
+.cuerpo__formulario h1 {
     margin-bottom: 5px;
 }
 
-#cuerpo__editar div {
+.cuerpo__formulario div {
     margin-bottom: 5px;
 }
 
-#formulario__sesion input, 
+#cuerpo__formulario__actividad h1 {
+    margin-bottom: 5px;
+}
+
+#cuerpo__formulario__actividad div {
+    margin-bottom: 5px;
+}
+
+#formulario__sesion input,
 #formulario__sesion textarea {
     display: block;
     width: 100%;
@@ -302,16 +327,168 @@ td {
     background-color: transparent;
 }
 
-#formulario__sesion input:focus:invalid, 
+#formulario__sesion input:focus:invalid,
 #formulario__sesion textarea:focus:invalid {
     outline: 2px solid lightcoral;
 }
 
-#formulario__sesion input:focus:valid, 
+#formulario__sesion input:focus:valid,
 #formulario__sesion textarea:focus:valid {
     outline: 2px solid yellowgreen;
 }
 
 .nota__formulario {
     font-size: .75rem;
+}
+
+/*MODAL*/
+.modal {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: all .3s ease; /*ease es para que tenga un efecto suave la transición*/
+    opacity: 0;
+    visibility: hidden;
+    z-index: 999;
+}
+
+.btn__modal:checked ~ .modal {
+    opacity: 1;
+    visibility: visible;
+}
+
+.contenedor__modal {
+    width: 400px;
+    height: 300px;
+    margin: auto;
+    background: white;
+    box-shadow: 1px 7px 25px rgba(0, 0, 0, 0.6);
+    transition: all .3s ease;
+    position: relative; /*Esto es con el fin de poner una posición absoluta al label del header*/
+    transform: translateY(-30%);
+}
+
+.btn__modal:checked ~ .modal .contenedor__modal {
+    transform: translateY(0%);
+}
+
+.contenedor__modal header {
+    padding: 10px;
+    background: #3da9fc;
+    color: white;
+    text-align: start;
+}
+
+.label__header {
+    position: absolute;
+    top: 10px;
+    right: 10px; /*top y right equivalente al padding del header*/
+    color: white;
+    cursor: pointer;
+}
+
+.btn__modal {
+    display: none;
+}
+
+.contenido__modal {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 260px; /*Resultado de la cuenta del heigth del contenedor modal - el del header*/
+}
+
+.btn__interior__modal {
+    display: block;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    border-radius: 25px;
+    text-align: center;
+    width: 100px;
+    transition: .3s;
+    text-decoration: none;
+}
+
+.btn__interior__modal:hover {
+    transition: .3s;
+}
+
+.contenido__modal div {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/*  ---  SECCION DE INICIO  ---  */
+#inicio h1 {
+    margin-top: 15px;
+}
+
+#caja__cards {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor__datos {
+    margin-top: 25px;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    width: 90%;
+}
+
+@media (min-width: 992px) {
+    #inicio h1 {
+        margin-top: 0;
+    }
+
+    #caja__cards {
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: initial;
+    }
+
+    .contenedor__datos {
+        width: 33%;
+    }
+}
+
+.contenedor__datos p {
+    margin-top: 10px;
+}
+
+.aclaracion {
+    text-align: center;
+    font-size: 1rem;
+}
+
+#cantidad__usuarios {
+    background: #90b4ce;
+}
+
+#cantidad__lugares {
+    background: #3da9fc;
+}
+
+#cantidad__actividades {
+    background: #094067;
+}
+
+/*  ---  SECCION SITIOS  ---  */
+
+/*  ---  SECCION ACTIVIDADES  ---  */
+@media (max-width: 992px) {
+    #actividades {
+        margin-top: 65px;
+    }
 }

@@ -69,6 +69,7 @@ body {
 
 .nav__menu__link:hover {
     background: lightblue;
+    transition: .5s;
 }
 
 .nav__toggle {
@@ -161,6 +162,7 @@ h1 {
     cursor: pointer;
     margin-top: 10px;
     width: 60%;
+    transition: .3s;
 }
 
 .btn__actividades:hover {

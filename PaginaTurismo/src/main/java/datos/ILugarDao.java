@@ -15,11 +15,5 @@ public interface ILugarDao {
     
     void eliminar(Lugar lugar);
     
-    void listarPortada(int id, HttpServletResponse resp);
-    
-    void listarFoto1(int id, HttpServletResponse resp);
-    
-    void listarFoto2(int id, HttpServletResponse resp);
-    
-    void listarFoto3(int id, HttpServletResponse resp);
+    void escribirImagen(int id, HttpServletResponse resp, int num);
 }

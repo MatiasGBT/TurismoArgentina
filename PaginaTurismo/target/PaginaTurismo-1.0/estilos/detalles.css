@@ -84,6 +84,7 @@ svg {
 
 .nav__menu__link:hover {
     background: lightblue;
+    transition: .5s;
 }
 
 .nav__toggle {
@@ -255,6 +256,7 @@ svg {
     font-size: 1rem;
     width: 100%;
     margin-bottom: 5px;
+    transition: .3s;
 }
 
 .btn__comprar:hover {

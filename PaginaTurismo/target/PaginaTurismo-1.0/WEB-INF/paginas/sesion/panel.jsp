@@ -15,6 +15,9 @@
                 
                 <%--SECCION SITIOS--%>
                 <jsp:include page="/WEB-INF/paginas/sesion/seccionSitios.jsp"/>
+                
+                <%--SECCION ACTIVIDADES--%>
+                <jsp:include page="/WEB-INF/paginas/sesion/seccionActividades.jsp"/>
             </div>
         </main>
 
