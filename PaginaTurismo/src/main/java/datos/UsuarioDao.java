@@ -27,17 +27,19 @@ public class UsuarioDao implements IUsuarioDao{
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Usuario usuarioVerificado=new Usuario();
+        Usuario usuarioVerificado=null;
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL);
             rs = stmt.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 usuarioVerificado=new Usuario();
                 usuarioVerificado.setIdUsuario(rs.getInt("idusuario"));
                 usuarioVerificado.setNombre(usuario.getNombre());
                 usuarioVerificado.setCargo(new Cargo());
                 usuarioVerificado.getCargo().setNombre(rs.getString("nombre"));
+            } else {
+                return null;
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

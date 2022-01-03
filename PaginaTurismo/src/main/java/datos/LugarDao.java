@@ -181,16 +181,20 @@ public class LugarDao implements ILugarDao {
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if(rs.next()) {
-                if(num==1) {
-                    inputStream=rs.getBinaryStream("portada");
-                } else if(num==2) {
-                    inputStream=rs.getBinaryStream("foto1");
-                } else if(num==3) {
-                    inputStream=rs.getBinaryStream("foto2");
-                } else if(num==4) {
-                    inputStream=rs.getBinaryStream("foto3");
+                switch (num) {
+                    case 1:
+                        inputStream=rs.getBinaryStream("portada");
+                        break;
+                    case 2:
+                        inputStream=rs.getBinaryStream("foto1");
+                        break;
+                    case 3:
+                        inputStream=rs.getBinaryStream("foto2");
+                        break;
+                    case 4:
+                        inputStream=rs.getBinaryStream("foto3");
+                        break;
                 }
-                
             }
             
             bufferedInputStream=new BufferedInputStream(inputStream);

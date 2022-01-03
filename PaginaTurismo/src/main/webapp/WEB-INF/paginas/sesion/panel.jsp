@@ -20,6 +20,8 @@
                 <jsp:include page="/WEB-INF/paginas/sesion/seccionActividades.jsp"/>
             </div>
         </main>
+            
+        <footer></footer> <%--Este footer solo esta para que el menu del panel en modo mobile no tape contenido--%>
 
         <%--SCRIPTS--%>
         <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>

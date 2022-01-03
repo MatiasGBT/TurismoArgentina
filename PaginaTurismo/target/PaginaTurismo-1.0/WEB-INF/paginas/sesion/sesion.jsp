@@ -13,8 +13,8 @@
                     <input type="text" name="usuario" required>
                     <label for="password"><i class="fas fa-key"></i> Contraseña:*</label>
                     <input type="password" name="password" required>
-                    <p>${mensaje}</p>
                     <input type="submit" value="Iniciar sesión">
+                    <p>${mensaje}</p>
                 </div>
             </form>
         </div>

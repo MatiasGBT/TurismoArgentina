@@ -33,6 +33,9 @@ public class ServletControlador extends HttpServlet {
                 case "listar":
                     this.mostrarActividades(req, resp);
                     break;
+                case "mostrarActividad":
+                    this.mostrarActividad(req, resp);
+                    break;
                 case "sesion":
                     this.mostrarInicioSesion(req, resp);
                     break;
@@ -72,6 +75,15 @@ public class ServletControlador extends HttpServlet {
         List<Actividad> actividades = datosA.listar();
         req.setAttribute("actividades", actividades);
         String jspBusqueda = "/WEB-INF/paginas/actividades/mostrarActividades.jsp";
+        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+    }
+    
+    private void mostrarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int idActividad = Integer.parseInt(req.getParameter("idActividad"));
+        Actividad actividad = new Actividad(idActividad);
+        actividad = datosA.encontrar(actividad);
+        req.setAttribute("actividad", actividad);
+        String jspBusqueda = "/WEB-INF/paginas/sesion/actividad/mostrarActividad.jsp";
         req.getRequestDispatcher(jspBusqueda).forward(req, resp);
     }
 
@@ -119,7 +131,8 @@ public class ServletControlador extends HttpServlet {
             sesion.setAttribute("visitante", usuario);
             this.accionDefault(req, resp);
         } else {
-            req.setAttribute("mensaje", "Credenciales incorrectas.");
+            String mensaje="Error: credenciales incorrectas";
+            req.setAttribute("mensaje", mensaje);
             String jspBusqueda = "WEB-INF/paginas/sesion/sesion.jsp";
             req.getRequestDispatcher(jspBusqueda).forward(req, resp);
         }
@@ -129,7 +142,7 @@ public class ServletControlador extends HttpServlet {
         HttpSession sesion = req.getSession();
         sesion.setAttribute("usuario", null);
         sesion.invalidate();
-        resp.sendRedirect("index.jsp");
+        resp.sendRedirect(""); //Para que vuelva a la página index
     }
 
     private void registrarse(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -147,6 +160,11 @@ public class ServletControlador extends HttpServlet {
 
             sesion.setAttribute("visitante", usuario);
             this.accionDefault(req, resp);
+        } else {
+            String mensaje="Error: las contraseñas no coinciden";
+            req.setAttribute("mensaje", mensaje);
+            String jspBusqueda = "WEB-INF/paginas/sesion/registrarse.jsp";
+            req.getRequestDispatcher(jspBusqueda).forward(req, resp);
         }
     }
 
