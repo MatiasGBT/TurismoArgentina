@@ -5,18 +5,18 @@
     <h1>Actividades</h1>
     <div class="flexbox">
         <c:forEach var="actividad" items="${actividades}">
-            <div>
+            <div class="flexbox__hija">
                 <img src="ServletImagen?accion=listarActividad&id=${actividad.idActividad}">
-                    <h3>${actividad.nombre}</h3>
-                    <p>ARS$${actividad.precio} por adulto.</p>
-                    <a href="${pageContext.request.contextPath}/ServletControlador?accion=listar">
-                        <button class="btn__actividades">Reservar</button>
-                    </a>
+                <h3>${actividad.nombre}</h3>
+                <p>ARS$${actividad.precio} por adulto.</p>
+                <a href="${pageContext.request.contextPath}/ServletControlador?accion=formularioActividad&idActividad=${actividad.idActividad}" class="btn__actividades">
+                    Reservar
+                </a>
             </div>
         </c:forEach>
     </div>
-    <a href="${pageContext.request.contextPath}/ServletControlador?accion=listar">
-        <button class="btn__actividades">Ver todas las actividades</button>
+    <a href="${pageContext.request.contextPath}/ServletControlador?accion=listar" id="btn__ver__mas" class="btn__actividades">
+        Ver todas las actividades
     </a>
 </section>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" style="background: white;" id="contacto">

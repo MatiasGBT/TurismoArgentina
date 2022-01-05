@@ -147,12 +147,18 @@ svg {
     color: white;
     text-transform: uppercase;
     text-align: center;
-    font-size: 8rem;
+    font-size: 6rem;
     margin-left: auto;
     margin-right: auto;
     font-family: 'Anton', sans-serif;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
+}
+
+@media (min-width: 992px) {
+    .titulo__portada {
+        font-size: 8rem;
+    }
 }
 
 /*SECCION DESCRIPCION*/
@@ -246,16 +252,16 @@ svg {
 }
 
 .btn__comprar {
-    border: 2px solid white;
-    color: white;
-    padding: 7px;
-    background: transparent;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 1rem;
+    display: block;
     width: 100%;
-    margin-bottom: 5px;
+    border: 2px solid white;
+    border-radius: 25px;
+    color: white;
+    font-size: 1rem;
+    text-decoration: none;
+    background: #3da9fc;
+    padding: 5px;
+    margin: 10px auto;
     transition: .3s;
 }
 

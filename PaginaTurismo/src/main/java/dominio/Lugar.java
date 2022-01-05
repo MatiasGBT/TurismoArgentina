@@ -107,6 +107,6 @@ public class Lugar {
 
     @Override
     public String toString() {
-        return "Lugar{" + "idLugar=" + idLugar + ", nombre=" + nombre + ", descripcion=" + descripcion + ", portada=" + portada + ", foto1=" + foto1 + ", foto2=" + foto2 + ", foto3=" + foto3 + '}';
+        return "Lugar{" + "idLugar=" + idLugar + ", nombre=" + nombre + ", descripcion=" + descripcion + ", portada=" + portada + ", foto1=" + foto1 + ", foto2=" + foto2 + ", foto3=" + foto3 + ", precio=" + precio + '}';
     }
 }

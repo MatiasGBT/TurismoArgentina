@@ -14,8 +14,8 @@
         <div class="caja">
             <h2>Compra el pasaje</h2>
             <p>ARS<fmt:formatNumber value="${lugar.precio}" type="currency"/></p>
-            <a>
-                <button class="btn__comprar">Comprar</button>
+            <a href="${pageContext.request.contextPath}/ServletControlador?accion=formularioLugar&idLugar=${lugar.idLugar}" class="btn__comprar">
+                Comprar
             </a>
             <p style="color: lightgray";>*No incluye estadía.</p>
         </div>

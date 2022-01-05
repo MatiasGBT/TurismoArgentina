@@ -71,6 +71,11 @@ html {
     margin-top: 20px;
 }
 
+/*FORMULARIO PARA COMPRAR/RESERVAR UN/A SITIO/ACTIVIDAD*/
+.caja__comprar {
+    width: 90%
+}
+
 /*  ---  PANEL DE ADMINISTRADOR  ---  */
 #cuerpo__panel {
     background: white;
@@ -312,10 +317,6 @@ td {
 }
 
 /*FORMULARIO EDITAR*/
-#cuerpo__formulario__lugar {
-
-}
-
 #cuerpo__formulario__actividad {
     height: 100vh;
 }

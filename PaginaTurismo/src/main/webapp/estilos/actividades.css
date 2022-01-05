@@ -153,15 +153,32 @@ h1 {
     }
 }
 
+.flexbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flexbox img {
+    margin-bottom: 10px;
+}
+
+.flexbox p {
+    margin-bottom: 10px;
+}
+
 .btn__actividades {
+    display: block;
+    width: 50%;
     border: 2px solid white;
+    border-radius: 25px;
     color: white;
-    padding: 7px;
-    background: transparent;
-    border-radius: 15px;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 60%;
+    font-size: 1rem;
+    text-decoration: none;
+    background: #3da9fc;
+    padding: 5px;
+    margin-top: auto;
     transition: .3s;
 }
 

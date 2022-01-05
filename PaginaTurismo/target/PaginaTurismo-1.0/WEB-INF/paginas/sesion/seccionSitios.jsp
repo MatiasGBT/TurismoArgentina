@@ -60,8 +60,7 @@
             </c:forEach>
         </tbody>
     </table>
-    <a href="${pageContext.request.contextPath}/ServletPanel?accion=agregarLugar"
-       class="btn__agregar">
+    <a href="${pageContext.request.contextPath}/ServletPanel?accion=agregarLugar" class="btn__agregar">
         Agregar sitio turístico
     </a>
 </section>
