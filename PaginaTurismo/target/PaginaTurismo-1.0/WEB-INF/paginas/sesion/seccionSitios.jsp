@@ -13,12 +13,12 @@
         </thead>
         <tbody>
             <%
-                String id = "btn__modal";
+                String id = "btn__modal__sitios";
                 int cant = 0;
             %>
             <c:forEach var="lugar" items="${lugares}">
                 <%
-                    id = "btn__modal";
+                    id = "btn__modal__sitios";
                     cant++;
                     id = id + cant;
                 %>

@@ -1,7 +1,9 @@
 dominio\Cargo.class
 dominio\Usuario.class
+dominio\Contacto.class
 dominio\Actividad.class
 web\ServletImagen.class
+datos\ContactoDao.class
 datos\ILugarDao.class
 web\ServletControlador.class
 dominio\Lugar.class
@@ -9,6 +11,7 @@ datos\IActividadDao.class
 datos\Conexion.class
 datos\UsuarioDao.class
 web\ServletPanel.class
+datos\IContactoDao.class
 datos\LugarDao.class
 datos\ActividadDao.class
 datos\IUsuarioDao.class

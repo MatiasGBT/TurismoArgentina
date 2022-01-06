@@ -17,9 +17,15 @@ public class UsuarioDao implements IUsuarioDao{
     private static final String SQL_INSERT = "INSERT INTO usuario(nombre, email, contraseña, cod_cargo)"
             + " VALUES(?, ?, ?, ?)";
     
+    //Verificaciones de registro:
+    private static final String SQL_SELECT_BY_NAME = "SELECT idusuario, nombre, email, contraseña, cod_cargo"
+            + " FROM usuario WHERE nombre=?";
+    
+    private static final String SQL_SELECT_BY_EMAIL = "SELECT idusuario, nombre, email, contraseña, cod_cargo"
+            + " FROM usuario WHERE email=?";
+    
     @Override
     public Usuario identificar(Usuario usuario) {
-        
         String SQL="SELECT u.idusuario, c.nombre FROM usuario u "
             + "INNER JOIN cargo c ON u.idusuario=c.idcargo "
             + "WHERE u.nombre='" + usuario.getNombre() + "' "
@@ -115,5 +121,53 @@ public class UsuarioDao implements IUsuarioDao{
             Conexion.close(conn);
         }
         return usuarios;
+    }
+    
+    @Override
+    public boolean verificarNombre(Usuario usuario) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean bandera = false;
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_NAME);
+            stmt.setString(1, usuario.getNombre());
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                bandera = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return bandera;
+    }
+    
+    @Override
+    public boolean verificarEmail(Usuario usuario) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        boolean bandera = false;
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(SQL_SELECT_BY_EMAIL);
+            stmt.setString(1, usuario.getEmail());
+            rs = stmt.executeQuery();
+            if(rs.next()) {
+                bandera = true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return bandera;
     }
 }

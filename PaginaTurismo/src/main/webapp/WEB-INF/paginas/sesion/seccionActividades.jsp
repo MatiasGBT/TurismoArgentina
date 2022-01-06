@@ -13,12 +13,12 @@
         </thead>
         <tbody>
             <%
-                String id = "btn__modal";
+                String id = "btn__modal__actividades";
                 int cant = 0;
             %>
             <c:forEach var="actividad" items="${actividades}">
                 <%
-                    id = "btn__modal";
+                    id = "btn__modal__actividades";
                     cant++;
                     id = id + cant;
                 %>
@@ -26,7 +26,7 @@
                     <td id="tabledata__1">${actividad.idActividad}</td>
                     <td id="tabledata__2">${actividad.nombre}</td>
                     <td id="tabledata__3" class="flex">
-                        <a href="${pageContext.request.contextPath}/ServletControlador?accion=mostrarActividad&idActividad=${actividad.idActividad}"
+                        <a href="${pageContext.request.contextPath}/ServletPanel?accion=mostrarActividad&idActividad=${actividad.idActividad}"
                            class="btn btn__ver">
                             <i class="fas fa-eye"></i>
                         </a>

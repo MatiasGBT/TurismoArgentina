@@ -1,6 +1,6 @@
 <section id="seccion__contacto">
     <h1>Contacto</h1>
-    <form action="${pageContext.request.contextPath}/ServletControlador?accion=enviar" method="POST" id="formulario__contacto">
+    <form action="${pageContext.request.contextPath}/ServletControlador?accion=enviarContacto" method="POST" id="formulario__contacto">
         <div>
             <label for="nombre">Nombre:*</label>
             <input type="text" name="nombre" required>
@@ -16,4 +16,5 @@
         </div>
     </form>
     <input type="submit" value="Enviar" form="formulario__contacto">
+    <p id="mensaje__contacto">${mensaje}</p>
 </section>

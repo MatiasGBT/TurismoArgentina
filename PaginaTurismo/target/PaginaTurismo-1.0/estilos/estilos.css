@@ -461,9 +461,19 @@ svg {
     margin-top: 10px;
 }
 
+#mensaje__contacto {
+    width: 70%;
+    padding-top: 10px;
+    margin: 0 auto;
+}
+
 @media (min-width: 992px) {
     #seccion__contacto input[type=submit] {
         width: 15%;
+    }
+    
+    #mensaje__contacto {
+        width: auto;
     }
 }
 

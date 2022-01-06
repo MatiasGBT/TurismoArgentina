@@ -16,11 +16,13 @@ public class ServletPanel extends HttpServlet {
     private final ILugarDao datosL;
     private final IActividadDao datosA;
     private final IUsuarioDao datosU;
+    private final IContactoDao datosC;
 
     public ServletPanel() {
         this.datosL = new LugarDao();
         this.datosA = new ActividadDao();
         this.datosU = new UsuarioDao();
+        this.datosC = new ContactoDao();
     }
 
     @Override
@@ -39,6 +41,9 @@ public class ServletPanel extends HttpServlet {
                     this.eliminarLugar(req, resp);
                     break;
                 //Opciones de actividades turísticas
+                case "mostrarActividad":
+                    this.mostrarActividad(req, resp);
+                    break;
                 case "editarActividad":
                     this.editarActividad(req, resp);
                     break;
@@ -47,6 +52,13 @@ public class ServletPanel extends HttpServlet {
                     break;
                 case "eliminarActividad":
                     this.eliminarActividad(req, resp);
+                    break;
+                //Opciones de contacto
+                case "mostrarContacto":
+                    this.mostrarContacto(req, resp);
+                    break;
+                case "eliminarContacto":
+                    this.eliminarContacto(req, resp);
                     break;
                 default:
                     this.accionDefault(req, resp);
@@ -58,11 +70,15 @@ public class ServletPanel extends HttpServlet {
 
     private void accionDefault(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession sesion = req.getSession();
+
         List<Usuario> usuarios = datosU.listar();
         List<Lugar> lugares = datosL.listar();
         List<Actividad> actividades = datosA.listar();
+        List<Contacto> contactos = datosC.listar();
+
         sesion.setAttribute("lugares", lugares);
         sesion.setAttribute("actividades", actividades);
+        sesion.setAttribute("contactos", contactos);
         sesion.setAttribute("totalUsuarios", usuarios.size());
         sesion.setAttribute("totalLugares", lugares.size());
         sesion.setAttribute("totalActividades", actividades.size());
@@ -94,6 +110,15 @@ public class ServletPanel extends HttpServlet {
     }
 
     //  ---  METODOS DOGET DE ACTIVIDADES ---  
+    private void mostrarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int idActividad = Integer.parseInt(req.getParameter("idActividad"));
+        Actividad actividad = new Actividad(idActividad);
+        actividad = datosA.encontrar(actividad);
+        req.setAttribute("actividad", actividad);
+        String jspBusqueda = "/WEB-INF/paginas/sesion/actividad/mostrarActividad.jsp";
+        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+    }
+
     private void editarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idActividad = Integer.parseInt(req.getParameter("idActividad"));
         Actividad actividad = datosA.encontrar(new Actividad(idActividad));
@@ -113,6 +138,23 @@ public class ServletPanel extends HttpServlet {
         int idActividad = Integer.parseInt(req.getParameter("idActividad"));
         Actividad actividad = new Actividad(idActividad);
         datosA.eliminar(actividad);
+        this.accionDefault(req, resp);
+    }
+
+    //  ---  METODOS DOGET DE CONTACTO ---  
+    private void mostrarContacto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int idContacto = Integer.parseInt(req.getParameter("idContacto"));
+        Contacto contacto = new Contacto(idContacto);
+        contacto = datosC.encontrar(contacto);
+        req.setAttribute("contacto", contacto);
+        String jspBusqueda = "/WEB-INF/paginas/sesion/contacto/mostrarContacto.jsp";
+        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+    }
+    
+    private void eliminarContacto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int idContacto = Integer.parseInt(req.getParameter("idContacto"));
+        Contacto contacto = new Contacto(idContacto);
+        datosC.eliminar(contacto);
         this.accionDefault(req, resp);
     }
 

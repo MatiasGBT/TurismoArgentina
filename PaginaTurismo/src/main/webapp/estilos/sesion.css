@@ -318,7 +318,7 @@ td {
 
 /*FORMULARIO EDITAR*/
 #cuerpo__formulario__actividad {
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .cuerpo__formulario {
@@ -522,6 +522,9 @@ td {
 /*  ---  SECCION ACTIVIDADES  ---  */
 @media (max-width: 992px) {
     #actividades {
+        margin-top: 65px;
+    }
+    #contacto {
         margin-top: 65px;
     }
 }

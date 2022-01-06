@@ -18,6 +18,9 @@
                 
                 <%--SECCION ACTIVIDADES--%>
                 <jsp:include page="/WEB-INF/paginas/sesion/seccionActividades.jsp"/>
+                
+                <%--SECCION CONTACTO--%>
+                <jsp:include page="/WEB-INF/paginas/sesion/seccionContacto.jsp"/>
             </div>
         </main>
             

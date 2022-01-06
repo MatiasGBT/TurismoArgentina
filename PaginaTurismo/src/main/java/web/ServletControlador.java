@@ -1,7 +1,5 @@
 package web;
 
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
@@ -12,7 +10,6 @@ import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.*;
 import javax.servlet.http.*;
-import javax.swing.text.StyleConstants;
 
 @WebServlet("/ServletControlador")
 @MultipartConfig
@@ -21,11 +18,13 @@ public class ServletControlador extends HttpServlet {
     private final ILugarDao datosL;
     private final IActividadDao datosA;
     private final IUsuarioDao datosU;
+    private final IContactoDao datosC;
 
     public ServletControlador() {
         this.datosL = new LugarDao();
         this.datosA = new ActividadDao();
         this.datosU = new UsuarioDao();
+        this.datosC = new ContactoDao();
     }
 
     //  ---  METODO DOGET Y TODOS LOS METODOS DE SUS ACCIONES  ---  
@@ -39,9 +38,6 @@ public class ServletControlador extends HttpServlet {
                     break;
                 case "listar":
                     this.mostrarActividades(req, resp);
-                    break;
-                case "mostrarActividad":
-                    this.mostrarActividad(req, resp);
                     break;
                 case "sesion":
                     this.mostrarInicioSesion(req, resp);
@@ -84,6 +80,7 @@ public class ServletControlador extends HttpServlet {
         HttpSession sesion = req.getSession();
         sesion.setAttribute("lugares", lugares);
         sesion.setAttribute("actividades", actividades);
+        sesion.setAttribute("mensaje", req.getAttribute("mensaje"));
         resp.sendRedirect("principal.jsp");
     }
 
@@ -100,15 +97,6 @@ public class ServletControlador extends HttpServlet {
         List<Actividad> actividades = datosA.listar();
         req.setAttribute("actividades", actividades);
         String jspBusqueda = "/WEB-INF/paginas/actividades/mostrarActividades.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
-    }
-
-    private void mostrarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idActividad = Integer.parseInt(req.getParameter("idActividad"));
-        Actividad actividad = new Actividad(idActividad);
-        actividad = datosA.encontrar(actividad);
-        req.setAttribute("actividad", actividad);
-        String jspBusqueda = "/WEB-INF/paginas/sesion/actividad/mostrarActividad.jsp";
         req.getRequestDispatcher(jspBusqueda).forward(req, resp);
     }
 
@@ -189,15 +177,7 @@ public class ServletControlador extends HttpServlet {
             }
         }
 
-        //Algoritmo para calcular el precio total de todos los productos en el carrito.
-        double total = 0;
-        for (Lugar l : lugares) {
-            total = total + l.getPrecio();
-        }
-        for (Actividad a : actividades) {
-            total = total + a.getPrecio();
-        }
-
+        double total = this.calcularTotal(lugares, actividades);
         req.setAttribute("total", total);
 
         String jspBusqueda = "WEB-INF/paginas/index/carrito.jsp";
@@ -238,15 +218,8 @@ public class ServletControlador extends HttpServlet {
 
         if (!lugares.isEmpty() || !actividades.isEmpty()) {
             resp.setContentType("application/pdf");
-            
-            //Algoritmo para calcular el precio total de todos los productos en el carrito.
-            double total = 0;
-            for (Lugar l : lugares) {
-                total = total + l.getPrecio();
-            }
-            for (Actividad a : actividades) {
-                total = total + a.getPrecio();
-            }
+
+            double total = this.calcularTotal(lugares, actividades);
 
             PdfWriter writer = new PdfWriter(resp.getOutputStream());
             PdfDocument pdf = new PdfDocument(writer);
@@ -274,10 +247,22 @@ public class ServletControlador extends HttpServlet {
                 documento.add(new Paragraph("Total: ARS$" + total));
             }
         } else {
-            String mensaje="Advertencia: el carrito de compras esta vacío.";
+            String mensaje = "Advertencia: el carrito de compras esta vacío.";
             req.setAttribute("mensaje", mensaje);
             this.mostrarCarrito(req, resp);
         }
+    }
+
+    //Algoritmo para calcular el precio total de todos los productos en el carrito.
+    private double calcularTotal(List<Lugar> lugares, List<Actividad> actividades) {
+        double total = 0;
+        for (Lugar l : lugares) {
+            total = total + l.getPrecio();
+        }
+        for (Actividad a : actividades) {
+            total = total + a.getPrecio();
+        }
+        return total;
     }
 
     //  ---  METODO DOPOST Y TODOS LOS METODOS DE SUS ACCIONES  ---  
@@ -291,6 +276,9 @@ public class ServletControlador extends HttpServlet {
                     break;
                 case "registrarse":
                     this.registrarse(req, resp);
+                    break;
+                case "enviarContacto":
+                    this.insertarContacto(req, resp);
                     break;
                 case "agregarLugarCarrito":
                     this.agregarLugarCarrito(req, resp);
@@ -338,16 +326,54 @@ public class ServletControlador extends HttpServlet {
 
             Usuario usuario = new Usuario(nombre, email, contraseña);
 
-            int registrosModificados = datosU.insertar(usuario);
-            System.out.println("Registros modificados totales: " + registrosModificados);
+            if (datosU.verificarNombre(usuario) || datosU.verificarEmail(usuario)) {
+                String mensaje = "Error: el nombre de usuario o el email ya estan registrados en la web";
+                req.setAttribute("mensaje", mensaje);
+                String jspBusqueda = "WEB-INF/paginas/sesion/registrarse.jsp";
+                req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+            } else {
+                int registrosModificados = datosU.insertar(usuario);
+                System.out.println("Registros modificados totales: " + registrosModificados);
 
-            sesion.setAttribute("visitante", usuario);
-            this.accionDefault(req, resp);
+                sesion.setAttribute("visitante", usuario);
+                this.accionDefault(req, resp);
+            }
         } else {
             String mensaje = "Error: las contraseñas no coinciden";
             req.setAttribute("mensaje", mensaje);
             String jspBusqueda = "WEB-INF/paginas/sesion/registrarse.jsp";
             req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        }
+    }
+
+    private void insertarContacto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession sesion = req.getSession();
+        Object mensaje = sesion.getAttribute("mensaje");
+        if(mensaje!=null) {
+            System.out.println(mensaje);  
+        }
+            
+        if (mensaje == null) {
+            //Recuperación valores del formulario:
+            String nombre = req.getParameter("nombre");
+            String email = req.getParameter("email");
+            String comentario = req.getParameter("comentario");
+
+            //Creación del objeto contacto
+            Contacto contacto = new Contacto(nombre, email, comentario);
+
+            //Insertar el objeto en la base de datos
+            datosC.insertar(contacto);
+
+            mensaje = "Se ha enviado el comentario correctamente, ¡muchas gracias!";
+            req.setAttribute("mensaje", mensaje);
+
+            //Redirección a la página principal
+            this.accionDefault(req, resp);
+        } else {
+            mensaje = "Ya envío un comentario anteriormente, por favor espere unos minutos para volver a hacerlo.";
+            req.setAttribute("mensaje", mensaje);
+            this.accionDefault(req, resp);
         }
     }
 
@@ -357,9 +383,11 @@ public class ServletControlador extends HttpServlet {
         List<Usuario> usuarios = datosU.listar();
         List<Lugar> lugares = datosL.listar();
         List<Actividad> actividades = datosA.listar();
+        List<Contacto> contactos = datosC.listar();
 
         sesion.setAttribute("lugares", lugares);
         sesion.setAttribute("actividades", actividades);
+        sesion.setAttribute("contactos", contactos);
         sesion.setAttribute("totalUsuarios", usuarios.size());
         sesion.setAttribute("totalLugares", lugares.size());
         sesion.setAttribute("totalActividades", actividades.size());
