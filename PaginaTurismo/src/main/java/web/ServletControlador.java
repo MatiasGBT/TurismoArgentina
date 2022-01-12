@@ -80,34 +80,29 @@ public class ServletControlador extends HttpServlet {
         HttpSession sesion = req.getSession();
         sesion.setAttribute("lugares", lugares);
         sesion.setAttribute("actividades", actividades);
-        sesion.setAttribute("mensaje", req.getAttribute("mensaje"));
+        sesion.setAttribute("mensajeContacto", req.getAttribute("mensajeContacto"));
         resp.sendRedirect("principal.jsp");
     }
 
     private void mostrarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idLugar = Integer.parseInt(req.getParameter("idLugar"));
-        Lugar lugar = new Lugar(idLugar);
-        lugar = datosL.encontrar(lugar);
+        Lugar lugar = datosL.encontrar(new Lugar(idLugar));
         req.setAttribute("lugar", lugar);
-        String jspBusqueda = "/WEB-INF/paginas/detalles/mostrarLugar.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/paginas/detalles/mostrarLugar.jsp").forward(req, resp);
     }
 
     private void mostrarActividades(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Actividad> actividades = datosA.listar();
         req.setAttribute("actividades", actividades);
-        String jspBusqueda = "/WEB-INF/paginas/actividades/mostrarActividades.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/actividades/mostrarActividades.jsp").forward(req, resp);
     }
 
     private void mostrarInicioSesion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String jspBusqueda = "WEB-INF/paginas/sesion/sesion.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/sesion.jsp").forward(req, resp);
     }
 
     private void mostrarRegistro(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String jspBusqueda = "WEB-INF/paginas/sesion/registrarse.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/registrarse.jsp").forward(req, resp);
     }
 
     private void cerrarSesion(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -119,22 +114,18 @@ public class ServletControlador extends HttpServlet {
 
     private void mostrarFormularioLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idLugar = Integer.parseInt(req.getParameter("idLugar"));
-        Lugar lugar = new Lugar(idLugar);
-        lugar = datosL.encontrar(lugar);
+        Lugar lugar = datosL.encontrar(new Lugar(idLugar));
         HttpSession sesion = req.getSession();
         sesion.setAttribute("lugar", lugar);
-        String jspBusqueda = "WEB-INF/paginas/formulariosCarrito/formularioLugar.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/formulariosCarrito/formularioLugar.jsp").forward(req, resp);
     }
 
     private void mostrarFormularioActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idActividad = Integer.parseInt(req.getParameter("idActividad"));
-        Actividad actividad = new Actividad(idActividad);
-        actividad = datosA.encontrar(actividad);
+        Actividad actividad = datosA.encontrar(new Actividad(idActividad));
         HttpSession sesion = req.getSession();
         sesion.setAttribute("actividad", actividad);
-        String jspBusqueda = "WEB-INF/paginas/formulariosCarrito/formularioActividad.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/formulariosCarrito/formularioActividad.jsp").forward(req, resp);
     }
 
     private void mostrarCarrito(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -156,7 +147,6 @@ public class ServletControlador extends HttpServlet {
 
         //Algoritmo para verificar si hay alguna actividad agregada al carrito la cual no posea su sitio turístico definido.
         boolean existe = false;
-        String mensaje = "";
         if (!lugares.isEmpty() && !actividades.isEmpty()) {
             for (Actividad a : actividades) {
                 for (Lugar l : lugares) {
@@ -172,16 +162,13 @@ public class ServletControlador extends HttpServlet {
                 }
             }
             if (existe) {
-                mensaje = "Advertencia: alguna/s de las actividades seleccionadas no corresponden a los lugares seleccionados en el carrito.";
-                req.setAttribute("mensaje", mensaje);
+                req.setAttribute("mensaje", "Advertencia: alguna/s de las actividades seleccionadas no corresponden a los lugares seleccionados en el carrito.");
             }
         }
 
-        double total = this.calcularTotal(lugares, actividades);
-        req.setAttribute("total", total);
+        req.setAttribute("total", this.calcularTotal(lugares, actividades));
 
-        String jspBusqueda = "WEB-INF/paginas/index/carrito.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/index/carrito.jsp").forward(req, resp);
     }
 
     private void quitarLugarCarrito(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -219,8 +206,6 @@ public class ServletControlador extends HttpServlet {
         if (!lugares.isEmpty() || !actividades.isEmpty()) {
             resp.setContentType("application/pdf");
 
-            double total = this.calcularTotal(lugares, actividades);
-
             PdfWriter writer = new PdfWriter(resp.getOutputStream());
             PdfDocument pdf = new PdfDocument(writer);
             try (Document documento = new Document(pdf)) {
@@ -244,7 +229,7 @@ public class ServletControlador extends HttpServlet {
 
                 documento.add(new Paragraph(""));
 
-                documento.add(new Paragraph("Total: ARS$" + total));
+                documento.add(new Paragraph("Total: ARS$" + this.calcularTotal(lugares, actividades)));
             }
         } else {
             String mensaje = "Advertencia: el carrito de compras esta vacío.";
@@ -309,15 +294,12 @@ public class ServletControlador extends HttpServlet {
             sesion.setAttribute("visitante", usuario);
             this.accionDefault(req, resp);
         } else {
-            String mensaje = "Error: credenciales incorrectas";
-            req.setAttribute("mensaje", mensaje);
-            String jspBusqueda = "WEB-INF/paginas/sesion/sesion.jsp";
-            req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+            req.setAttribute("mensaje", "Error: credenciales incorrectas");
+            req.getRequestDispatcher("WEB-INF/paginas/sesion/sesion.jsp").forward(req, resp);
         }
     }
 
     private void registrarse(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession sesion = req.getSession();
         String contraseña = req.getParameter("password");
         String confirmarContraseña = req.getParameter("confpassword");
         if (contraseña.equals(confirmarContraseña)) {
@@ -327,11 +309,10 @@ public class ServletControlador extends HttpServlet {
             Usuario usuario = new Usuario(nombre, email, contraseña);
 
             if (datosU.verificarNombre(usuario) || datosU.verificarEmail(usuario)) {
-                String mensaje = "Error: el nombre de usuario o el email ya estan registrados en la web";
-                req.setAttribute("mensaje", mensaje);
-                String jspBusqueda = "WEB-INF/paginas/sesion/registrarse.jsp";
-                req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+                req.setAttribute("mensaje", "Error: el nombre de usuario o el email ya estan registrados en la web");
+                req.getRequestDispatcher("WEB-INF/paginas/sesion/registrarse.jsp").forward(req, resp);
             } else {
+                HttpSession sesion = req.getSession();
                 int registrosModificados = datosU.insertar(usuario);
                 System.out.println("Registros modificados totales: " + registrosModificados);
 
@@ -339,19 +320,14 @@ public class ServletControlador extends HttpServlet {
                 this.accionDefault(req, resp);
             }
         } else {
-            String mensaje = "Error: las contraseñas no coinciden";
-            req.setAttribute("mensaje", mensaje);
-            String jspBusqueda = "WEB-INF/paginas/sesion/registrarse.jsp";
-            req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+            req.setAttribute("mensaje", "Error: las contraseñas no coinciden");
+            req.getRequestDispatcher("WEB-INF/paginas/sesion/registrarse.jsp").forward(req, resp);
         }
     }
 
     private void insertarContacto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession sesion = req.getSession();
-        Object mensaje = sesion.getAttribute("mensaje");
-        if(mensaje!=null) {
-            System.out.println(mensaje);  
-        }
+        Object mensaje = sesion.getAttribute("mensajeContacto");
             
         if (mensaje == null) {
             //Recuperación valores del formulario:
@@ -366,13 +342,13 @@ public class ServletControlador extends HttpServlet {
             datosC.insertar(contacto);
 
             mensaje = "Se ha enviado el comentario correctamente, ¡muchas gracias!";
-            req.setAttribute("mensaje", mensaje);
+            req.setAttribute("mensajeContacto", mensaje);
 
             //Redirección a la página principal
             this.accionDefault(req, resp);
         } else {
             mensaje = "Ya envío un comentario anteriormente, por favor espere unos minutos para volver a hacerlo.";
-            req.setAttribute("mensaje", mensaje);
+            req.setAttribute("mensajeContacto", mensaje);
             this.accionDefault(req, resp);
         }
     }
@@ -392,8 +368,7 @@ public class ServletControlador extends HttpServlet {
         sesion.setAttribute("totalLugares", lugares.size());
         sesion.setAttribute("totalActividades", actividades.size());
 
-        String jspBusqueda = "WEB-INF/paginas/sesion/panel.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/panel.jsp").forward(req, resp);
     }
 
     private void agregarLugarCarrito(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -401,8 +376,7 @@ public class ServletControlador extends HttpServlet {
         int idLugar = Integer.parseInt(req.getParameter("idLugar"));
         int cantidad = Integer.parseInt(req.getParameter("cantidad"));
 
-        Lugar lugar = new Lugar(idLugar);
-        lugar = datosL.encontrar(lugar);
+        Lugar lugar = datosL.encontrar(new Lugar(idLugar));
         lugar.setPrecio(lugar.getPrecio() * cantidad);
 
         List<Lugar> lugares = (List<Lugar>) sesion.getAttribute("lugaresCarrito");
@@ -411,21 +385,19 @@ public class ServletControlador extends HttpServlet {
         }
 
         //Algoritmo para detectar si el lugar seleccionado ya esta en el carrito
-        String mensaje = "";
         boolean existe = false;
         for (Lugar l : lugares) {
             if (l.getNombre().equals(lugar.getNombre())) {
                 existe = true;
+                break;
             }
         }
 
         if (!existe) {
             lugares.add(lugar);
         } else {
-            mensaje = "Advertencia: el lugar seleccionado ya se encuentra en el carrito, debe eliminarlo si quiere agregarlo de nuevo.";
+            req.setAttribute("mensaje", "Advertencia: el lugar seleccionado ya se encuentra en el carrito, debe eliminarlo si quiere agregarlo de nuevo.");
         }
-
-        req.setAttribute("mensaje", mensaje);
 
         sesion.setAttribute("lugaresCarrito", lugares);
         this.mostrarCarrito(req, resp);
@@ -436,8 +408,7 @@ public class ServletControlador extends HttpServlet {
         int idActividad = Integer.parseInt(req.getParameter("idActividad"));
         int cantidad = Integer.parseInt(req.getParameter("cantidad"));
 
-        Actividad actividad = new Actividad(idActividad);
-        actividad = datosA.encontrar(actividad);
+        Actividad actividad = datosA.encontrar(new Actividad(idActividad));
         actividad.setPrecio(actividad.getPrecio() * cantidad);
 
         List<Actividad> actividades = (List<Actividad>) sesion.getAttribute("actividadesCarrito");
@@ -446,7 +417,6 @@ public class ServletControlador extends HttpServlet {
         }
 
         //Algoritmo para detectar si la actividad seleccionada ya esta en el carrito
-        String mensaje = "";
         boolean existe = false;
         for (Actividad a : actividades) {
             if (a.getNombre().equals(actividad.getNombre())) {
@@ -457,10 +427,8 @@ public class ServletControlador extends HttpServlet {
         if (!existe) {
             actividades.add(actividad);
         } else {
-            mensaje = "Advertencia: la actividad seleccionada ya se encuentra en el carrito, debe eliminarla si quiere agregarla de nuevo.";
+            req.setAttribute("mensaje", "Advertencia: la actividad seleccionada ya se encuentra en el carrito, debe eliminarla si quiere agregarla de nuevo.");
         }
-
-        req.setAttribute("mensaje", mensaje);
 
         sesion.setAttribute("actividadesCarrito", actividades);
         this.mostrarCarrito(req, resp);

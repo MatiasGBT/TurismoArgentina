@@ -18,7 +18,7 @@
                     <label for="confpassword"><i class="fas fa-key"></i> Confirmar contraseña:*</label>
                     <input type="password" name="confpassword" required>
                     <input type="submit" value="Registrarse">
-                    <p>${mensaje}</p>
+                    <p class="mensaje__error">${mensaje}</p>
                 </div>
             </form>
         </div>

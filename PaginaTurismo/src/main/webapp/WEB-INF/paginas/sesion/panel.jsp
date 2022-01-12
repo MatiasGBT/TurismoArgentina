@@ -28,6 +28,5 @@
 
         <%--SCRIPTS--%>
         <script src="https://kit.fontawesome.com/94d22320fc.js" crossorigin="anonymous"></script>
-        <script src="script/myscript.js"></script>
     </body>
 </html>

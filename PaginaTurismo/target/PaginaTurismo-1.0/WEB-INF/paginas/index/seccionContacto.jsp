@@ -16,5 +16,5 @@
         </div>
     </form>
     <input type="submit" value="Enviar" form="formulario__contacto">
-    <p id="mensaje__contacto">${mensaje}</p>
+    <p id="mensaje__contacto">${mensajeContacto}</p>
 </section>

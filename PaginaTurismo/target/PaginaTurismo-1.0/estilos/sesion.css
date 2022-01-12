@@ -71,6 +71,16 @@ html {
     margin-top: 20px;
 }
 
+.mensaje__error {
+    width: 300px;
+}
+
+@media (min-width: 992px) {
+    .mensaje__error {
+        width: auto;
+    }
+}
+
 /*FORMULARIO PARA COMPRAR/RESERVAR UN/A SITIO/ACTIVIDAD*/
 .caja__comprar {
     width: 90%

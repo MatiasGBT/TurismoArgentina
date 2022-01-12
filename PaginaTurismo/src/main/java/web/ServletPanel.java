@@ -82,8 +82,7 @@ public class ServletPanel extends HttpServlet {
         sesion.setAttribute("totalUsuarios", usuarios.size());
         sesion.setAttribute("totalLugares", lugares.size());
         sesion.setAttribute("totalActividades", actividades.size());
-        String jspBusqueda = "WEB-INF/paginas/sesion/panel.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/panel.jsp").forward(req, resp);
     }
 
     //  ---  METODOS DOGET DE SITIOS ---  
@@ -91,15 +90,11 @@ public class ServletPanel extends HttpServlet {
         int idLugar = Integer.parseInt(req.getParameter("idLugar"));
         Lugar lugar = datosL.encontrar(new Lugar(idLugar));
         req.setAttribute("lugar", lugar);
-        String jspBusqueda = "WEB-INF/paginas/sesion/lugar/editarLugar.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/lugar/editarLugar.jsp").forward(req, resp);
     }
 
     private void agregarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Lugar lugar = new Lugar();
-        req.setAttribute("lugar", lugar);
-        String jspBusqueda = "WEB-INF/paginas/sesion/lugar/agregarLugar.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/lugar/agregarLugar.jsp").forward(req, resp);
     }
 
     private void eliminarLugar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -112,26 +107,20 @@ public class ServletPanel extends HttpServlet {
     //  ---  METODOS DOGET DE ACTIVIDADES ---  
     private void mostrarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idActividad = Integer.parseInt(req.getParameter("idActividad"));
-        Actividad actividad = new Actividad(idActividad);
-        actividad = datosA.encontrar(actividad);
+        Actividad actividad = datosA.encontrar(new Actividad(idActividad));
         req.setAttribute("actividad", actividad);
-        String jspBusqueda = "/WEB-INF/paginas/sesion/actividad/mostrarActividad.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/actividad/mostrarActividad.jsp").forward(req, resp);
     }
 
     private void editarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idActividad = Integer.parseInt(req.getParameter("idActividad"));
         Actividad actividad = datosA.encontrar(new Actividad(idActividad));
         req.setAttribute("actividad", actividad);
-        String jspBusqueda = "WEB-INF/paginas/sesion/actividad/editarActividad.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/actividad/editarActividad.jsp").forward(req, resp);
     }
 
     private void agregarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Actividad actividad = new Actividad();
-        req.setAttribute("actividad", actividad);
-        String jspBusqueda = "WEB-INF/paginas/sesion/actividad/agregarActividad.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/actividad/agregarActividad.jsp").forward(req, resp);
     }
 
     private void eliminarActividad(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -144,11 +133,9 @@ public class ServletPanel extends HttpServlet {
     //  ---  METODOS DOGET DE CONTACTO ---  
     private void mostrarContacto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idContacto = Integer.parseInt(req.getParameter("idContacto"));
-        Contacto contacto = new Contacto(idContacto);
-        contacto = datosC.encontrar(contacto);
+        Contacto contacto = datosC.encontrar(new Contacto(idContacto));
         req.setAttribute("contacto", contacto);
-        String jspBusqueda = "/WEB-INF/paginas/sesion/contacto/mostrarContacto.jsp";
-        req.getRequestDispatcher(jspBusqueda).forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/paginas/sesion/contacto/mostrarContacto.jsp").forward(req, resp);
     }
     
     private void eliminarContacto(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

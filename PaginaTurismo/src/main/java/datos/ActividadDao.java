@@ -65,9 +65,9 @@ public class ActividadDao implements IActividadDao {
         int n2;
         int n3;
         do {
-            n1 = (int) (Math.random() * 9 + 1);
-            n2 = (int) (Math.random() * 9 + 1);
-            n3 = (int) (Math.random() * 9 + 1);
+            n1 = (int) (Math.random() * listar().size() + 1);
+            n2 = (int) (Math.random() * listar().size() + 1);
+            n3 = (int) (Math.random() * listar().size() + 1);
         } while (n1 == n2 || n2 == n3 || n1==n3);
         
         Connection conn = null;
@@ -211,7 +211,7 @@ public class ActividadDao implements IActividadDao {
 
             bufferedInputStream = new BufferedInputStream(inputStream);
             bufferedOutputStream = new BufferedOutputStream(outputStream);
-            int i = 0;
+            int i;
             while ((i = bufferedInputStream.read()) != -1) {
                 bufferedOutputStream.write(i);
             }

@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:include page="WEB-INF/paginas/comunes/etiquetasHead.jsp"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Turismo Argentina</title>
+        <link rel="icon" type="image/ico" href="favicon.ico">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Marcellus&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="estilos/estilos.css">
     </head>
     <body>
         <main>
@@ -18,8 +24,5 @@
                 </div>
             </div>
         </main>
-
-        <%--SCRIPTS--%>
-        <jsp:include page="WEB-INF/paginas/comunes/scripts.jsp"/>
     </body>
 </html>

@@ -199,7 +199,7 @@ public class LugarDao implements ILugarDao {
             
             bufferedInputStream=new BufferedInputStream(inputStream);
             bufferedOutputStream= new BufferedOutputStream(outputStream);
-            int i=0;
+            int i;
             while((i=bufferedInputStream.read())!=-1) {
                 bufferedOutputStream.write(i);
             }
